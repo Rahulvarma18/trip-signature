@@ -27,15 +27,14 @@ export default function Navbar({ onSearchClick, user, onOpenAuth, onLogout, over
     <header
       className={`${transparent
         ? 'absolute top-0 left-0 right-0 bg-transparent border-transparent'
-        : 'sticky top-0 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8E2D7] shadow-sm'
+        : 'sticky top-0 bg-[#1E1E1E]/95 backdrop-blur-md border-b border-white/10 shadow-sm'
         } z-50 transition-all duration-300`}
     >
       <div className="section-container flex items-center justify-between py-4">
         {/* Logo */}
         <Link
           to="/"
-          className={`font-display text-2xl font-bold tracking-tight ${transparent ? 'text-white' : 'text-[#111111]'
-            }`}
+          className="font-display text-2xl font-bold tracking-tight text-white"
         >
           Trip<span className="font-signature mt-1 text-[#C9A86A]">Signature</span>
         </Link>
@@ -47,10 +46,7 @@ export default function Navbar({ onSearchClick, user, onOpenAuth, onLogout, over
               <li key={link.label}>
                 <Link
                   to={link.to}
-                  className={`text-[13px] font-medium relative group transition-colors ${transparent
-                    ? 'text-white/90 hover:text-[#C9A86A]'
-                    : 'text-[#1E1E1E] hover:text-[#C9A86A]'
-                    }`}
+                  className="text-[13px] font-medium relative group transition-colors text-white/90 hover:text-[#C9A86A]"
                 >
                   {link.label}
                   <span
@@ -85,17 +81,12 @@ export default function Navbar({ onSearchClick, user, onOpenAuth, onLogout, over
           </button> */}
 
           {user ? (
-            <UserMenu
-              user={user}
-              onLogout={onLogout}
-              transparent={transparent}
-            />
+            <UserMenu user={user} onLogout={onLogout} />
           ) : (
             <div className="hidden sm:flex items-center gap-2">
               <button
                 onClick={() => onOpenAuth('login')}
-                className={`text-sm font-medium px-3 py-2 transition-colors ${transparent ? 'text-white/85 hover:text-white' : 'hover:text-black'
-                  }`}
+                className="text-sm font-medium px-3 py-2 transition-colors text-white/85 hover:text-white"
               >
                 Log In
               </button>
@@ -110,8 +101,7 @@ export default function Navbar({ onSearchClick, user, onOpenAuth, onLogout, over
 
           {/* Mobile hamburger */}
           <button
-            className={`md:hidden transition-colors ${transparent ? 'text-white' : 'text-black'
-              }`}
+            className="md:hidden transition-colors text-white"
             aria-label="Toggle menu"
             onClick={() => setOpen((v) => !v)}
           >
@@ -122,24 +112,24 @@ export default function Navbar({ onSearchClick, user, onOpenAuth, onLogout, over
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-line bg-white">
+        <div className="md:hidden border-t border-white/10 bg-[#1E1E1E]">
           <ul className="section-container py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
               <li key={link.label}>
                 <Link
                   to={link.to}
                   onClick={() => setOpen(false)}
-                  className="text-sm font-medium hover:text-black transition-colors"
+                  className="text-sm font-medium text-white/90 hover:text-[#C9A86A] transition-colors"
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
-            <li className="flex items-center gap-3 pt-2 border-t border-line">
+            <li className="flex items-center gap-3 pt-2 border-t border-white/10">
               {user ? (
                 <button
                   onClick={onLogout}
-                  className="text-sm font-medium text-black flex items-center gap-1.5"
+                  className="text-sm font-medium text-white flex items-center gap-1.5"
                 >
                   <LogOut size={15} /> Log out ({user.name})
                 </button>
@@ -147,13 +137,13 @@ export default function Navbar({ onSearchClick, user, onOpenAuth, onLogout, over
                 <>
                   <button
                     onClick={() => { onOpenAuth('login'); setOpen(false) }}
-                    className="text-sm font-medium flex items-center gap-1.5"
+                    className="text-sm font-medium text-white flex items-center gap-1.5"
                   >
                     <User size={15} /> Log In
                   </button>
                   <button
                     onClick={() => { onOpenAuth('signup'); setOpen(false) }}
-                    className="text-sm font-medium text-black"
+                    className="text-sm font-medium text-white"
                   >
                     Sign Up
                   </button>
@@ -167,14 +157,13 @@ export default function Navbar({ onSearchClick, user, onOpenAuth, onLogout, over
   )
 }
 
-function UserMenu({ user, onLogout, transparent }) {
+function UserMenu({ user, onLogout }) {
   const [open, setOpen] = useState(false)
   return (
     <div className="relative hidden sm:block">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`flex items-center gap-2 text-sm font-medium ${transparent ? 'text-white' : ''
-          }`}
+        className="flex items-center gap-2 text-sm font-medium text-white"
       >
         <span className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-black font-semibold font-display">
           {user.name?.[0]?.toUpperCase() || 'U'}

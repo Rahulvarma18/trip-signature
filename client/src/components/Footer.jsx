@@ -20,7 +20,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.3fr] gap-11 mb-12">
           <div>
             <div className="font-display text-2xl text-white mb-3.5">
-              Trip<span className="text-[#C5A059]">Signature</span>
+              Trip<span className="font-signature text-[#C5A059]">Signature</span>
             </div>
             <p className="text-[13.5px] leading-relaxed text-white/60 max-w-xs">
               A curated travel discovery platform for pilgrimage, honeymoon and trekking

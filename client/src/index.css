@@ -19,16 +19,12 @@
 
   --font-display: "Cormorant Garamond", serif;
   --font-body: "Jost", sans-serif;
+  --font-signature: "Allura", cursive;
 
   --shadow-signature: 0 20px 50px -20px rgba(17, 17, 17, 0.18);
   --shadow-deep: 0 30px 70px -25px rgba(0, 0, 0, 0.55);
 
   --radius-card: 6px;
-}
-
-@font-family: {
-  display: ["Cormorant Garamond", "serif"],
-    signature: ["Allura", "cursive"],
 }
 
 body {
