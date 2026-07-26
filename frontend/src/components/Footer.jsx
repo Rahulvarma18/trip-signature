@@ -15,12 +15,12 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-[#2B2B2B] text-white/80 pt-16 pb-6">
+    <footer className="bg-[#040809] text-white/80 pt-16 pb-6">
       <div className="section-container">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.3fr] gap-11 mb-12">
           <div>
             <div className="font-display text-2xl text-white mb-3.5">
-              Trip<span className="font-signature text-[#2B2B2B]">Signature</span>
+              Trip<span className="font-signature text-[#D4AF37]">Signature</span>
             </div>
             <p className="text-[13.5px] leading-relaxed text-white/60 max-w-xs">
               A curated travel discovery platform for pilgrimage, honeymoon and trekking
@@ -52,15 +52,15 @@ export default function Footer() {
             </ul>
             <div className="mt-6 flex flex-col gap-2.5">
               <div className="flex gap-2.5 text-[13.5px] items-start">
-                <Phone size={15} className="stroke-[#2B2B2B] flex-none mt-0.5" />
+                <Phone size={15} className="stroke-[#F8F0CA] flex-none mt-0.5" />
                 <span>{CONTACT.phone}</span>
               </div>
               <div className="flex gap-2.5 text-[13.5px] items-start">
-                <Mail size={15} className="stroke-[#2B2B2B] flex-none mt-0.5" />
+                <Mail size={15} className="stroke-[#F8F0CA] flex-none mt-0.5" />
                 <span>{CONTACT.email}</span>
               </div>
               <div className="flex gap-2.5 text-[13.5px] items-start">
-                <MapPin size={15} className="stroke-[#2B2B2B] flex-none mt-0.5" />
+                <MapPin size={15} className="stroke-[#F8F0CA] flex-none mt-0.5" />
                 <span>{CONTACT.address}</span>
               </div>
             </div>
@@ -81,14 +81,14 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email address"
-                  className="flex-1 min-w-0 bg-white/10 border border-white/20 rounded-l-sm px-3.5 py-2.5 text-sm text-white placeholder:text-white/40 outline-none focus:border-[#2B2B2B]"
+                  className="flex-1 min-w-0 bg-white/10 border border-white/20 rounded-l-sm px-3.5 py-2.5 text-sm text-white placeholder:text-white/40 outline-none focus:border-[#F8F0CA]"
                 />
                 <button
                   type="submit"
-                  className="bg-[#2B2B2B] text-[#2B2B2B] hover:bg-[#B3B3B3] transition-colors px-4 rounded-r-sm flex items-center justify-center font-medium"
+                  className="bg-[#040809] text-[#F8F0CA] hover:bg-[#4E3924] transition-colors px-4 rounded-r-sm flex items-center justify-center font-medium"
                   aria-label="Subscribe"
                 >
-                  <ArrowRight size={16} className="stroke-[#2B2B2B]" />
+                  <ArrowRight size={16} className="stroke-[#F8F0CA]" />
                 </button>
               </form>
             )}

@@ -27,16 +27,16 @@ export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth
     <header
       className={`${transparent
         ? 'absolute top-0 left-0 right-0 bg-transparent border-transparent'
-        : 'sticky top-0 bg-[#2B2B2B]/95 backdrop-blur-md border-b border-white/10 shadow-sm'
+        : 'sticky top-0 bg-[#040809]/95 backdrop-blur-md border-b border-white/10 shadow-sm'
         } z-50 transition-all duration-300`}
     >
       <div className="section-container flex items-center justify-between py-4">
         {/* Logo */}
         <Link
           to="/"
-          className="font-display text-2xl font-bold tracking-tight text-white"
+          className="font-display text-3xl tracking-tight text-white"
         >
-          Trip<span className="font-signature mt-1 text-[#2B2B2B]">Signature</span>
+          Trip<span className="font-signature mt-1 text-[#D4AF37]">Signature</span>
         </Link>
 
         {/* Desktop nav */}
@@ -47,18 +47,18 @@ export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth
                 {link.action ? (
                   <button
                     onClick={link.action}
-                    className="text-[13px] font-medium relative group transition-colors text-white/90 hover:text-[#B3B3B3]"
+                    className="text-[13px] font-medium relative group transition-colors text-white/90 hover:text-[#F8F0CA]"
                   >
                     {link.label}
-                    <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-200 group-hover:w-full bg-[#2B2B2B]" />
+                    <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-200 group-hover:w-full bg-[#F8F0CA]" />
                   </button>
                 ) : (
                   <Link
                     to={link.to}
-                    className="text-[13px] font-medium relative group transition-colors text-white/90 hover:text-[#B3B3B3]"
+                    className="text-[13px] font-medium relative group transition-colors text-white/90 hover:text-[#F8F0CA]"
                   >
                     {link.label}
-                    <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-200 group-hover:w-full bg-[#2B2B2B]" />
+                    <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-200 group-hover:w-full bg-[#F8F0CA]" />
                   </Link>
                 )}
               </li>
@@ -99,7 +99,7 @@ export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth
               </button>
               <button
                 onClick={() => onOpenAuth('signup')}
-                className="btn btn-primary text-xs"
+                className="bg-[#4E3924] text-[#F8F0CA] hover:bg-[#3A2A1A] transition-colors px-5 py-2.5 rounded-sm text-xs font-semibold tracking-wider uppercase"
               >
                 Sign Up
               </button>
@@ -119,14 +119,14 @@ export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-white/10 bg-[#2B2B2B]">
+        <div className="md:hidden border-t border-white/10 bg-[#040809]">
           <ul className="section-container py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
               <li key={link.label}>
                 {link.action ? (
                   <button
                     onClick={() => { link.action(); setOpen(false) }}
-                    className="text-sm font-medium text-white/90 hover:text-[#B3B3B3] transition-colors"
+                    className="text-sm font-medium text-white/90 hover:text-[#F8F0CA] transition-colors"
                   >
                     {link.label}
                   </button>
@@ -134,7 +134,7 @@ export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth
                   <Link
                     to={link.to}
                     onClick={() => setOpen(false)}
-                    className="text-sm font-medium text-white/90 hover:text-[#B3B3B3] transition-colors"
+                    className="text-sm font-medium text-white/90 hover:text-[#F8F0CA] transition-colors"
                   >
                     {link.label}
                   </Link>

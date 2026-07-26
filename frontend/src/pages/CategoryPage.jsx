@@ -11,7 +11,7 @@ export default function CategoryPage() {
 
     return (
         <div>
-            <section className="bg-[#2B2B2B] text-white py-16">
+            <section className="bg-[#040809] text-white py-16">
                 <div className="section-container">
                     <Link
                         to="/"
@@ -19,7 +19,7 @@ export default function CategoryPage() {
                     >
                         <ChevronLeft size={16} /> Back to Home
                     </Link>
-                    <span className="eyebrow text-[#2B2B2B]">{category.items.length} Destinations</span>
+                    <span className="eyebrow text-[#040809]">{category.items.length} Destinations</span>
                     <h1 className="font-display font-semibold text-4xl md:text-5xl mt-3 mb-4">
                         {category.label}
                     </h1>
@@ -35,8 +35,8 @@ export default function CategoryPage() {
                                 key={cat.key}
                                 to={`/category/${cat.key}`}
                                 className={`px-5 py-2.5 rounded-full border text-sm font-medium transition-colors duration-200 ${cat.key === categoryKey
-                                    ? 'bg-[#2B2B2B] border-[#2B2B2B] text-white'
-                                    : 'border-line text-ink-soft hover:border-[#2B2B2B] hover:text-[#2B2B2B]'
+                                    ? 'bg-[#040809] border-[#040809] text-white'
+                                    : 'border-line text-ink-soft hover:border-[#040809] hover:text-[#040809]'
                                     }`}
                             >
                                 {cat.shortLabel}

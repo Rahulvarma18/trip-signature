@@ -96,7 +96,7 @@ export default function InquiryForm({ presetDestination }) {
   if (submitted) {
     return (
       <div className="bg-paper rounded-[10px] p-10 shadow-deep text-center relative">
-        <CheckCircle2 size={52} className="stroke-[#2B2B2B] mx-auto mb-4" />
+        <CheckCircle2 size={52} className="stroke-[#040809] mx-auto mb-4" />
         <h3 className="font-display text-2xl font-semibold mb-2">Enquiry received!</h3>
         <p className="text-ink-soft text-sm">
           Thank you — your dedicated curator will call you shortly to plan the journey.
@@ -206,11 +206,11 @@ export default function InquiryForm({ presetDestination }) {
         </Field>
 
         <div className="bg-ivory border border-line rounded-md px-4.5 py-4 flex items-center gap-3.5 mb-1">
-          <span className="flex items-center gap-1.5 text-[11.5px] font-semibold uppercase tracking-wide text-[#2B2B2B] flex-none">
+          <span className="flex items-center gap-1.5 text-[11.5px] font-semibold uppercase tracking-wide text-[#040809] flex-none">
             <ShieldCheck size={15} />
             Verified Human
           </span>
-          <div className="bg-[#2B2B2B] text-white rounded-md px-4 py-2.5 font-semibold text-sm whitespace-nowrap">
+          <div className="bg-[#040809] text-white rounded-md px-4 py-2.5 font-semibold text-sm whitespace-nowrap">
             {captcha.a} + {captcha.b} = ?
           </div>
           <input
@@ -219,7 +219,7 @@ export default function InquiryForm({ presetDestination }) {
             placeholder="Answer"
             value={captchaInput}
             onChange={(e) => setCaptchaInput(e.target.value)}
-            className="flex-1 min-w-0 border border-line rounded-md px-3 py-2.5 text-sm focus:border-[#2B2B2B] outline-none"
+            className="flex-1 min-w-0 border border-line rounded-md px-3 py-2.5 text-sm focus:border-[#040809] outline-none"
           />
         </div>
         {errors.captcha && <p className="text-red-600 text-xs mb-3">{errors.captcha}</p>}
@@ -240,7 +240,7 @@ export default function InquiryForm({ presetDestination }) {
 function Field({ label, required, optional, error, children }) {
   return (
     <div className="mb-4.5">
-      <label className="block text-[11px] font-semibold tracking-wide uppercase text-[#2B2B2B] mb-1.5">
+      <label className="block text-[11px] font-semibold tracking-wide uppercase text-[#040809] mb-1.5">
         {label} {required && <span className="text-red-600">*</span>}
         {optional && (
           <span className="text-ink-soft font-normal normal-case tracking-normal text-[11px]">
@@ -257,7 +257,7 @@ function Field({ label, required, optional, error, children }) {
 
 function IconInput({ icon: Icon, withCaret, children }) {
   return (
-    <div className="flex items-center gap-2.5 border border-line rounded-md px-3.5 bg-[#D4D4D4]/50 focus-within:border-[#2B2B2B] focus-within:ring-2 focus-within:ring-[#D4D4D4] transition-all">
+    <div className="flex items-center gap-2.5 border border-line rounded-md px-3.5 bg-[#84A095]/50 focus-within:border-[#040809] focus-within:ring-2 focus-within:ring-[#84A095] transition-all">
       <Icon size={17} className="stroke-ink-soft flex-none" />
       {children}
       {withCaret && <ChevronDown size={13} className="stroke-ink-soft flex-none" />}

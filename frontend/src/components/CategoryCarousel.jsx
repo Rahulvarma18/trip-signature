@@ -65,18 +65,18 @@ export default function CategoryCarousel() {
                     <button
                         onClick={() => scrollBy(-1)}
                         aria-label="Scroll left"
-                        className="absolute -left-1 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white border border-[#D4D4D4] shadow-signature flex items-center justify-center hover:border-[#B3B3B3] transition-colors"
+                        className="absolute -left-1 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white border border-[#84A095] shadow-signature flex items-center justify-center hover:border-[#4E3924] transition-colors"
                     >
-                        <ChevronLeft size={18} className="stroke-[#2B2B2B]" />
+                        <ChevronLeft size={18} className="stroke-[#040809]" />
                     </button>
                 )}
                 {canScrollRight && (
                     <button
                         onClick={() => scrollBy(1)}
                         aria-label="Scroll right"
-                        className="absolute -right-1 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white border border-[#D4D4D4] shadow-signature flex items-center justify-center hover:border-[#B3B3B3] transition-colors"
+                        className="absolute -right-1 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white border border-[#84A095] shadow-signature flex items-center justify-center hover:border-[#4E3924] transition-colors"
                     >
-                        <ChevronRight size={18} className="stroke-[#2B2B2B]" />
+                        <ChevronRight size={18} className="stroke-[#040809]" />
                     </button>
                 )}
 
@@ -89,19 +89,19 @@ export default function CategoryCarousel() {
                         const circleInner = (
                             <>
                                 {item.badge && (
-                                    <span className="absolute top-3 bg-[#2B2B2B] text-[#FFFFFF] border border-[#2B2B2B]/50 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">
+                                    <span className="absolute top-3 bg-[#040809] text-[#FFFFFF] border border-[#040809]/50 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">
                                         {item.badge}
                                     </span>
                                 )}
-                                <Icon size={34} className="stroke-[#2B2B2B]" strokeWidth={1.6} />
-                                <span className="font-display text-lg font-semibold text-[#2B2B2B]">{item.label}</span>
-                                <span className="text-[11px] font-semibold uppercase tracking-wide text-[#2B2B2B]">
+                                <Icon size={34} className="stroke-[#040809]" strokeWidth={1.6} />
+                                <span className="font-display text-lg font-semibold text-[#040809]">{item.label}</span>
+                                <span className="text-[11px] font-semibold uppercase tracking-wide text-[#040809]">
                                     Explore Now
                                 </span>
                             </>
                         )
                         const circleClass =
-                            'relative flex-none w-[190px] h-[190px] rounded-full bg-[#D4D4D4]/60 border border-[#D4D4D4] flex flex-col items-center justify-center gap-2 hover:bg-white hover:border-[#B3B3B3] transition-all duration-200 hover:shadow-signature'
+                            'relative flex-none w-[190px] h-[190px] rounded-full bg-[#84A095]/60 border border-[#84A095] flex flex-col items-center justify-center gap-2 hover:bg-white hover:border-[#4E3924] transition-all duration-200 hover:shadow-signature'
 
                         return item.categoryKey ? (
                             <Link key={item.key} to={`/category/${item.categoryKey}`} className={circleClass}>
@@ -122,7 +122,7 @@ export default function CategoryCarousel() {
 
             <a
                 href="#inquire"
-                className="hidden sm:flex items-center gap-2 fixed sm:absolute right-6 bottom-6 sm:bottom-4 z-30 bg-[#2B2B2B] text-[#FFFFFF] border border-[#2B2B2B]/50 shadow-deep rounded-full pl-4 pr-5 py-3 text-sm font-semibold hover:bg-[#B3B3B3] hover:text-[#2B2B2B] transition-all duration-300"
+                className="hidden sm:flex items-center gap-2 fixed sm:absolute right-6 bottom-6 sm:bottom-4 z-30 bg-[#040809] text-[#FFFFFF] border border-[#040809]/50 shadow-deep rounded-full pl-4 pr-5 py-3 text-sm font-semibold hover:bg-[#4E3924] hover:text-[#040809] transition-all duration-300"
             >
                 <MessageSquareText size={16} className="stroke-current" />
                 Plan Your Trip

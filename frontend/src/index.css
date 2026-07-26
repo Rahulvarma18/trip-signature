@@ -2,25 +2,25 @@
 
 /* ---------- Design tokens (replaces tailwind.config.js theme.extend) ---------- */
 @theme {
-  --color-ivory: #FFFFFF;
+  --color-ivory: #F8F0CA;
   --color-paper: #FFFFFF;
 
-  --color-ink: #2B2B2B;
-  --color-ink-soft: #767676;
+  --color-ink: #040809;
+  --color-ink-soft: #26484D;
 
-  --color-primary: #2B2B2B;
-  --color-primary-dark: #000000;
+  --color-primary: #4E3924;
+  --color-primary-dark: #3A2A1A;
 
-  --color-umber: #2B2B2B;
+  --color-umber: #040809;
 
-  --color-gold: #2B2B2B;
-  --color-gold-light: #FFFFFF;
+  --color-gold: #4E3924;
+  --color-gold-light: #F8F0CA;
 
-  --color-line: #D4D4D4;
-  --color-tint: #D4D4D4;
+  --color-line: #84A095;
+  --color-tint: #C9D6D0;
 
-  --color-success: #2B2B2B;
-  --color-danger: #767676;
+  --color-success: #26484D;
+  --color-danger: #84A095;
 
   --font-display: "Cormorant Garamond", serif;
   --font-body: "Jost", sans-serif;
@@ -33,8 +33,8 @@
 }
 
 body {
-  background-color: #FFFFFF;
-  color: #2B2B2B;
+  background-color: #F8F0CA;
+  color: #040809;
 }
 
 html {
@@ -42,14 +42,14 @@ html {
 }
 
 ::selection {
-  background: #2B2B2B;
-  color: #FFFFFF;
+  background: #4E3924;
+  color: #F8F0CA;
 }
 
 /* ---------- Reusable component classes ---------- */
 @layer components {
   .eyebrow {
-    @apply font-body tracking-[0.28em] uppercase text-xs font-semibold text-[#2B2B2B];
+    @apply font-body tracking-[0.28em] uppercase text-xs font-semibold text-[#4E3924];
   }
 
   .btn {
@@ -57,11 +57,11 @@ html {
   }
 
   .btn-primary {
-    @apply bg-[#2B2B2B] text-[#FFFFFF] hover:bg-[#B3B3B3] hover:text-[#2B2B2B] border border-[#2B2B2B] hover:border-[#B3B3B3] shadow-sm;
+    @apply bg-[#040809] text-[#F8F0CA] hover:bg-[#4E3924] hover:text-[#F8F0CA] border border-[#040809] hover:border-[#4E3924] shadow-sm;
   }
 
   .btn-ghost {
-    @apply border border-[#2B2B2B] text-[#2B2B2B] bg-transparent hover:bg-[#2B2B2B] hover:text-[#FFFFFF];
+    @apply border border-[#040809] text-[#040809] bg-transparent hover:bg-[#040809] hover:text-[#F8F0CA];
   }
 
   .section-container {

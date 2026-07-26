@@ -35,7 +35,7 @@ export default function AuthModal({ mode, onClose, onAuthenticated, onSwitchMode
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-5 right-5 text-ink-soft hover:text-[#2B2B2B] transition-colors"
+          className="absolute top-5 right-5 text-ink-soft hover:text-[#040809] transition-colors"
         >
           <X size={20} />
         </button>
@@ -52,10 +52,10 @@ export default function AuthModal({ mode, onClose, onAuthenticated, onSwitchMode
         <form onSubmit={handleSubmit} noValidate>
           {isSignup && (
             <div className="mb-4">
-              <label className="block text-[11px] font-semibold tracking-wide uppercase text-[#2B2B2B] mb-1.5">
+              <label className="block text-[11px] font-semibold tracking-wide uppercase text-[#040809] mb-1.5">
                 Name
               </label>
-              <div className="flex items-center gap-2.5 border border-line rounded-md px-3.5 bg-[#D4D4D4]/50 focus-within:border-[#2B2B2B]">
+              <div className="flex items-center gap-2.5 border border-line rounded-md px-3.5 bg-[#84A095]/50 focus-within:border-[#040809]">
                 <User size={17} className="stroke-ink-soft flex-none" />
                 <input
                   type="text"
@@ -70,10 +70,10 @@ export default function AuthModal({ mode, onClose, onAuthenticated, onSwitchMode
           )}
 
           <div className="mb-4">
-            <label className="block text-[11px] font-semibold tracking-wide uppercase text-[#2B2B2B] mb-1.5">
+            <label className="block text-[11px] font-semibold tracking-wide uppercase text-[#040809] mb-1.5">
               Email
             </label>
-            <div className="flex items-center gap-2.5 border border-line rounded-md px-3.5 bg-[#D4D4D4]/50 focus-within:border-[#2B2B2B]">
+            <div className="flex items-center gap-2.5 border border-line rounded-md px-3.5 bg-[#84A095]/50 focus-within:border-[#040809]">
               <Mail size={17} className="stroke-ink-soft flex-none" />
               <input
                 type="email"
@@ -87,10 +87,10 @@ export default function AuthModal({ mode, onClose, onAuthenticated, onSwitchMode
           </div>
 
           <div className="mb-5">
-            <label className="block text-[11px] font-semibold tracking-wide uppercase text-[#2B2B2B] mb-1.5">
+            <label className="block text-[11px] font-semibold tracking-wide uppercase text-[#040809] mb-1.5">
               Password
             </label>
-            <div className="flex items-center gap-2.5 border border-line rounded-md px-3.5 bg-[#D4D4D4]/50 focus-within:border-[#2B2B2B]">
+            <div className="flex items-center gap-2.5 border border-line rounded-md px-3.5 bg-[#84A095]/50 focus-within:border-[#040809]">
               <Lock size={17} className="stroke-ink-soft flex-none" />
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -120,7 +120,7 @@ export default function AuthModal({ mode, onClose, onAuthenticated, onSwitchMode
           {isSignup ? 'Already have an account?' : "Don't have an account?"}{' '}
           <button
             onClick={() => onSwitchMode(isSignup ? 'login' : 'signup')}
-            className="text-[#2B2B2B] font-semibold hover:underline"
+            className="text-[#040809] font-semibold hover:underline"
           >
             {isSignup ? 'Log in' : 'Sign up'}
           </button>

@@ -45,7 +45,7 @@ export default function DestinationPage({ onEnquire }) {
     return (
         <div>
             {/* Breadcrumb */}
-            <div className="bg-[#2B2B2B] text-white py-6">
+            <div className="bg-[#040809] text-white py-6">
                 <div className="section-container flex items-center gap-2 text-sm flex-wrap">
                     <Link to="/" className="inline-flex items-center gap-1.5 text-white/70 hover:text-white">
                         <ChevronLeft size={16} /> Home
@@ -55,7 +55,7 @@ export default function DestinationPage({ onEnquire }) {
                         {category.label}
                     </Link>
                     <span className="text-white/40">/</span>
-                    <span className="text-[#2B2B2B]">{item.name}</span>
+                    <span className="text-[#040809]">{item.name}</span>
                 </div>
             </div>
 
@@ -65,7 +65,7 @@ export default function DestinationPage({ onEnquire }) {
                     <div>
                         {/* Gallery */}
                         <div>
-                            <div className="rounded-card overflow-hidden bg-[#D4D4D4]/50 h-[280px] sm:h-[380px] md:h-[440px] mb-3">
+                            <div className="rounded-card overflow-hidden bg-[#84A095]/50 h-[280px] sm:h-[380px] md:h-[440px] mb-3">
                                 <img
                                     src={gallery[activeImage]}
                                     alt={item.name}
@@ -78,7 +78,7 @@ export default function DestinationPage({ onEnquire }) {
                                         <button
                                             key={src + i}
                                             onClick={() => setActiveImage(i)}
-                                            className={`h-[64px] sm:h-[80px] rounded-md overflow-hidden border-2 transition-all ${i === activeImage ? 'border-[#2B2B2B]' : 'border-transparent opacity-80 hover:opacity-100'
+                                            className={`h-[64px] sm:h-[80px] rounded-md overflow-hidden border-2 transition-all ${i === activeImage ? 'border-[#040809]' : 'border-transparent opacity-80 hover:opacity-100'
                                                 }`}
                                         >
                                             <img src={src} alt={`${item.name} ${i + 1}`} className="w-full h-full object-cover" />
@@ -97,8 +97,8 @@ export default function DestinationPage({ onEnquire }) {
                                 </h1>
                                 <div className="flex items-center flex-wrap gap-4 mt-3 text-sm text-ink-soft">
                                     <span className="flex items-center gap-1.5">
-                                        <Star size={14} className="fill-[#2B2B2B] stroke-[#2B2B2B]" />
-                                        <b className="text-[#2B2B2B]">{reviewAvg}</b> ({reviews.length} reviews)
+                                        <Star size={14} className="fill-[#4E3924] stroke-[#4E3924]" />
+                                        <b className="text-[#040809]">{reviewAvg}</b> ({reviews.length} reviews)
                                     </span>
                                     <span className="flex items-center gap-1.5">
                                         <Clock size={14} /> {item.duration}
@@ -110,7 +110,7 @@ export default function DestinationPage({ onEnquire }) {
                             </div>
                             <div className="text-right">
                                 <span className="text-xs uppercase tracking-wide text-ink-soft">Starting from</span>
-                                <div className="font-display text-3xl font-bold text-[#2B2B2B]">{item.price}</div>
+                                <div className="font-display text-3xl font-bold text-[#040809]">{item.price}</div>
                                 <span className="text-xs text-ink-soft">per person</span>
                             </div>
                         </div>
@@ -131,7 +131,7 @@ export default function DestinationPage({ onEnquire }) {
                                             key={h}
                                             className="flex items-start gap-2.5 bg-paper border border-line rounded-md px-4 py-3 text-[13.5px]"
                                         >
-                                            <CheckCircle2 size={16} className="stroke-[#2B2B2B] flex-none mt-0.5" />
+                                            <CheckCircle2 size={16} className="stroke-[#040809] flex-none mt-0.5" />
                                             {h}
                                         </div>
                                     ))}
@@ -145,7 +145,7 @@ export default function DestinationPage({ onEnquire }) {
                             <div className="space-y-4">
                                 {itinerary.map((day) => (
                                     <div key={day.day} className="flex gap-4 bg-paper border border-line rounded-card p-5">
-                                        <div className="flex-none w-11 h-11 rounded-full bg-[#2B2B2B] text-white flex items-center justify-center font-display font-bold">
+                                        <div className="flex-none w-11 h-11 rounded-full bg-[#040809] text-white flex items-center justify-center font-display font-bold">
                                             {day.day}
                                         </div>
                                         <div>
@@ -166,7 +166,7 @@ export default function DestinationPage({ onEnquire }) {
                                 <ul className="space-y-2.5">
                                     {inclusions.map((inc) => (
                                         <li key={inc} className="flex items-start gap-2.5 text-[13.5px] text-ink-soft">
-                                            <CheckCircle2 size={15} className="stroke-[#2B2B2B] flex-none mt-0.5" />
+                                            <CheckCircle2 size={15} className="stroke-[#040809] flex-none mt-0.5" />
                                             {inc}
                                         </li>
                                     ))}
@@ -177,7 +177,7 @@ export default function DestinationPage({ onEnquire }) {
                                 <ul className="space-y-2.5">
                                     {exclusions.map((exc) => (
                                         <li key={exc} className="flex items-start gap-2.5 text-[13.5px] text-ink-soft">
-                                            <XCircle size={15} className="stroke-[#767676] flex-none mt-0.5" />
+                                            <XCircle size={15} className="stroke-[#26484D] flex-none mt-0.5" />
                                             {exc}
                                         </li>
                                     ))}
@@ -190,7 +190,7 @@ export default function DestinationPage({ onEnquire }) {
                             <div className="flex items-center justify-between mb-4">
                                 <h2 className="font-display text-2xl font-semibold">Traveller Reviews</h2>
                                 <span className="flex items-center gap-1.5 text-sm">
-                                    <Star size={16} className="fill-[#2B2B2B] stroke-[#2B2B2B]" />
+                                    <Star size={16} className="fill-[#4E3924] stroke-[#4E3924]" />
                                     <b>{reviewAvg}</b>
                                     <span className="text-ink-soft">/ 5</span>
                                 </span>
@@ -199,7 +199,7 @@ export default function DestinationPage({ onEnquire }) {
                                 {reviews.map((r) => (
                                     <div key={r.id} className="bg-paper border border-line rounded-card p-6 relative">
                                         <div className="flex items-center gap-3 mb-3">
-                                            <div className="w-[38px] h-[38px] rounded-full bg-[#D4D4D4] flex items-center justify-center font-display font-bold text-[#2B2B2B] border border-[#D4D4D4]">
+                                            <div className="w-[38px] h-[38px] rounded-full bg-[#84A095] flex items-center justify-center font-display font-bold text-[#040809] border border-[#84A095]">
                                                 {r.name.charAt(0)}
                                             </div>
                                             <div>
@@ -207,7 +207,7 @@ export default function DestinationPage({ onEnquire }) {
                                                 <span className="text-xs text-ink-soft">{r.date}</span>
                                             </div>
                                             <span className="ml-auto flex items-center gap-1 text-xs font-semibold">
-                                                <Star size={12} className="fill-[#2B2B2B] stroke-[#2B2B2B]" />
+                                                <Star size={12} className="fill-[#4E3924] stroke-[#4E3924]" />
                                                 {r.rating}
                                             </span>
                                         </div>
@@ -222,7 +222,7 @@ export default function DestinationPage({ onEnquire }) {
                     <aside className="lg:sticky lg:top-6 h-fit space-y-5">
                         <div className="bg-paper border border-line rounded-card p-6 shadow-signature">
                             <span className="text-xs uppercase tracking-wide text-ink-soft">Starting from</span>
-                            <div className="font-display text-3xl font-bold text-[#2B2B2B] mb-1">{item.price}</div>
+                            <div className="font-display text-3xl font-bold text-[#040809] mb-1">{item.price}</div>
                             <span className="text-xs text-ink-soft">per person, taxes included</span>
 
                             <div className="mt-5 space-y-2.5 text-[13.5px] text-ink-soft">
@@ -233,7 +233,7 @@ export default function DestinationPage({ onEnquire }) {
                                     <Users size={15} /> Solo, couples & groups
                                 </div>
                                 <div className="flex items-center gap-2.5">
-                                    <ShieldCheck size={15} className="stroke-[#2B2B2B]" /> Verified, trusted planning
+                                    <ShieldCheck size={15} className="stroke-[#040809]" /> Verified, trusted planning
                                 </div>
                             </div>
 
@@ -248,14 +248,14 @@ export default function DestinationPage({ onEnquire }) {
                             </a>
                         </div>
 
-                        <div className="bg-[#2B2B2B] text-white rounded-card p-6">
+                        <div className="bg-[#040809] text-white rounded-card p-6">
                             <h3 className="font-display text-lg font-semibold mb-2">Need help deciding?</h3>
                             <p className="text-white/75 text-[13px] leading-relaxed mb-4">
                                 Talk to a travel curator about {item.name} — no obligation, just honest advice.
                             </p>
                             <button
                                 onClick={() => onEnquire?.(item.name)}
-                                className="btn bg-[#2B2B2B] text-[#2B2B2B] hover:bg-white w-full border-none"
+                                className="btn bg-[#F8F0CA] text-[#040809] hover:bg-white w-full border-none"
                             >
                                 Request a Callback
                             </button>
@@ -270,7 +270,7 @@ export default function DestinationPage({ onEnquire }) {
                             <h2 className="font-display text-2xl font-semibold">More in {category.label}</h2>
                             <Link
                                 to={`/category/${category.key}`}
-                                className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-[#2B2B2B] hover:text-[#B3B3B3]"
+                                className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-[#040809] hover:text-[#4E3924]"
                             >
                                 View All <ChevronRight size={14} />
                             </Link>

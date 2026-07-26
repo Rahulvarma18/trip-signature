@@ -21,7 +21,7 @@ export const AnimatedHikeCard = React.forwardRef(function AnimatedHikeCard(
             ref={ref}
             {...linkProps}
             className={cn(
-                'group relative block w-full cursor-pointer rounded-2xl border border-line bg-paper p-6 text-[#2B2B2B] shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-signature',
+                'group relative block w-full cursor-pointer rounded-2xl border border-line bg-paper p-6 text-[#040809] shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-signature',
                 className
             )}
             aria-label={`Learn more about ${title}`}
@@ -30,7 +30,7 @@ export const AnimatedHikeCard = React.forwardRef(function AnimatedHikeCard(
                 {/* Card Header: Title and Arrow */}
                 <div className="mb-6 flex items-center justify-between gap-3">
                     <h2 className="font-display text-2xl font-semibold tracking-tight">{title}</h2>
-                    <ArrowRight className="h-5 w-5 flex-none text-[#2B2B2B] transition-all duration-300 ease-in-out group-hover:translate-x-1 group-hover:text-[#B3B3B3]" />
+                    <ArrowRight className="h-5 w-5 flex-none text-[#040809] transition-all duration-300 ease-in-out group-hover:translate-x-1 group-hover:text-[#4E3924]" />
                 </div>
 
                 {/* Stacked images, fan out on hover so the last one lands exactly

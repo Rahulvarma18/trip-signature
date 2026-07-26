@@ -42,7 +42,7 @@ export default function Testimonials() {
                 {t.quote}
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-[38px] h-[38px] rounded-full bg-[#D4D4D4] flex items-center justify-center font-display font-bold text-[#2B2B2B] border border-[#D4D4D4]">
+                <div className="w-[38px] h-[38px] rounded-full bg-[#84A095] flex items-center justify-center font-display font-bold text-[#040809] border border-[#84A095]">
                   {t.initial}
                 </div>
                 <div>
@@ -56,4 +56,4 @@ export default function Testimonials() {
       </div>
     </section>
   )
-} 
+}

@@ -11,11 +11,11 @@ export default function InquirySection({ presetDestination }) {
   return (
     <section
       id="inquire"
-      className="relative bg-[#2B2B2B] text-white py-22 md:py-24 border-t border-[#2B2B2B]/20"
+      className="relative bg-[#1C130B] text-white py-22 md:py-24 border-t border-[#4E3924]/30"
     >
       <div className="section-container grid lg:grid-cols-[0.85fr_1.15fr] gap-14 items-center">
         <div>
-          <span className="eyebrow text-[#2B2B2B]">Let Us Help</span>
+          <span className="eyebrow text-[#FFFFFF]">Let Us Help</span>
           <h2 className="font-display font-semibold text-3xl md:text-4xl mt-3.5 mb-4.5 text-[#FFFFFF]">
             Tell us where your heart wants to go
           </h2>
@@ -26,7 +26,7 @@ export default function InquirySection({ presetDestination }) {
           <div className="flex flex-col gap-3.5">
             {POINTS.map((point) => (
               <div key={point} className="flex gap-3 items-start text-sm text-white/80">
-                <CheckCircle2 size={18} className="stroke-[#2B2B2B] flex-none mt-0.5" />
+                <CheckCircle2 size={18} className="stroke-[#FFFFFF] flex-none mt-0.5" />
                 {point}
               </div>
             ))}

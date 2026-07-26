@@ -9,7 +9,7 @@ export default function DestinationCard({ item, categoryKey }) {
 
   const stats = [
     { icon: <Clock size={14} />, label: item.duration },
-    { icon: <Star size={14} className="fill-[#2B2B2B] stroke-[#2B2B2B]" />, label: `${item.rating} Rating` },
+    { icon: <Star size={14} className="fill-[#4E3924] stroke-[#4E3924]" />, label: `${item.rating} Rating` },
     { icon: <BadgeIndianRupee size={14} />, label: item.price }
   ]
 

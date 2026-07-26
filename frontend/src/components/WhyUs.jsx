@@ -39,8 +39,8 @@ export default function WhyUs() {
               key={title}
               className="bg-paper border border-line rounded-card p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-signature"
             >
-              <div className="w-[52px] h-[52px] rounded-full bg-[#D4D4D4] border border-[#D4D4D4] flex items-center justify-center mx-auto mb-4.5">
-                <Icon size={24} className="stroke-[#2B2B2B]" />
+              <div className="w-[52px] h-[52px] rounded-full bg-[#84A095] border border-[#84A095] flex items-center justify-center mx-auto mb-4.5">
+                <Icon size={24} className="stroke-[#040809]" />
               </div>
               <h3 className="font-display text-lg font-semibold mb-2">{title}</h3>
               <p className="text-[13.5px] text-ink-soft leading-relaxed">{desc}</p>
