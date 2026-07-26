@@ -44,12 +44,12 @@ const DESTINATIONS = [
         link: '/category/pilgrimage/char-dham-yatra',
     },
     {
-        name: 'Switzerland',
-        country: 'Europe',
+        name: 'Himachal',
+        country: 'India',
         rating: 4.9,
-        description: 'Alpine meadows, pristine lakes, and snow-capped peaks at every turn.',
-        image: '/images/destinations/swiss-alps-luxury-tour/1.png',
-        link: '/category/honeymoon',
+        description: 'Snow-capped mountains, lush green valleys, and pristine lakes.',
+        image: '/himachal.png',
+        link: '/category/honeymoon/himachal',
     },
 ]
 
