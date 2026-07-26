@@ -17,7 +17,7 @@ export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth
 
   const navLinks = [
     { label: 'Home', to: '/' },
-    { label: 'Destinations', to: "/" },
+    { label: 'Destinations', to: "#popular-destinations" },
     { label: 'Spiritual', to: '/category/pilgrimage' },
     { label: 'Honeymoon', to: '/category/honeymoon' },
     { label: 'Trek', to: '/category/trek' },

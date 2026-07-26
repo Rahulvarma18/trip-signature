@@ -8,7 +8,7 @@ const DESTINATIONS = [
         country: 'Uttarakhand, India',
         rating: 4.9,
         description: 'One of the twelve Jyotirlingas, set against the snow-capped Kedarnath range.',
-        image: '/images/destinations/kedarnath/1.png',
+        image: '/kedar.png',
         link: '/category/pilgrimage/kedarnath',
     },
     {
@@ -16,16 +16,16 @@ const DESTINATIONS = [
         country: 'South Asia',
         rating: 4.8,
         description: 'Crystal-clear lagoons and overwater bungalows in the heart of the Indian Ocean.',
-        image: '/images/destinations/maldives-luxury-retreat/1.png',
-        link: '/category/luxury/maldives-luxury-retreat',
+        image: '/maldives.png',
+        link: '/category/beach',
     },
     {
         name: 'Bali',
         country: 'Indonesia',
         rating: 4.8,
         description: 'Lush terraced rice fields, sacred temples, and a rich spiritual culture.',
-        image: '/images/destinations/bali/1.png',
-        link: '/category/honeymoon/bali',
+        image: '/bali.png',
+        link: '/category/honeymoon',
     },
     {
         name: 'Kashi Varanasi',
@@ -47,8 +47,8 @@ const DESTINATIONS = [
         name: 'Himachal',
         country: 'India',
         rating: 4.9,
-        description: 'Snow-capped mountains, lush green valleys, and pristine lakes.',
-        image: '/himachal.png',
+        description: 'Himalayan valleys, serene lakes, and adventure activities.',
+        image: '/images/destinations/himachal/1.png',
         link: '/category/honeymoon/himachal',
     },
 ]
@@ -91,7 +91,7 @@ export default function PopularDestinations() {
     }
 
     return (
-        <section ref={sectionRef} className="py-16 overflow-hidden">
+        <section ref={sectionRef} id="popular-destinations" className="py-16 overflow-hidden">
             <div className={`section-container mb-8 flex items-end justify-between transition-opacity duration-700 ${isVisible ? 'animate-hero-title' : 'opacity-0'}`}>
                 <div>
                     <p className="eyebrow mb-3">Handpicked for you</p>
@@ -101,9 +101,9 @@ export default function PopularDestinations() {
                 </div>
                 <Link
                     to="/category/pilgrimage"
-                    className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-[#040809] hover:text-[#4E3924] transition-colors group"
+                    className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-[#2B2B2B] hover:text-[#B3B3B3] transition-colors group"
                 >
-                    View all <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#040809]" />
+                    View all <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#2B2B2B]" />
                 </Link>
             </div>
 
@@ -130,8 +130,8 @@ export default function PopularDestinations() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/10 transition-opacity duration-300 group-hover:opacity-95" />
 
                             {/* Arrow button top-right */}
-                            <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#FFFFFF]/90 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-md border border-[#040809]/40">
-                                <ArrowUpRight size={18} className="text-[#040809] transition-transform group-hover:scale-110" />
+                            <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#FFFFFF]/90 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-md border border-[#2B2B2B]/40">
+                                <ArrowUpRight size={18} className="text-[#2B2B2B] transition-transform group-hover:scale-110" />
                             </div>
 
                             {/* Bottom content */}
@@ -142,7 +142,7 @@ export default function PopularDestinations() {
                                         {dest.country}
                                     </span>
                                     <span className="flex items-center gap-1 text-white text-[12px] font-medium bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15">
-                                        <Star size={11} className="fill-[#4E3924] stroke-[#4E3924]" />
+                                        <Star size={11} className="fill-[#2B2B2B] stroke-[#2B2B2B]" />
                                         {dest.rating}
                                     </span>
                                 </div>
@@ -166,7 +166,7 @@ export default function PopularDestinations() {
                     <button
                         onClick={() => scrollBy(-1)}
                         aria-label="Scroll left"
-                        className="absolute -left-3 sm:-left-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[#040809] text-[#FFFFFF] flex items-center justify-center shadow-deep hover:bg-[#4E3924] hover:text-[#040809] transition-all duration-200 hover:scale-110 active:scale-95 z-10 border border-[#040809]/40"
+                        className="absolute -left-3 sm:-left-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[#2B2B2B] text-[#FFFFFF] flex items-center justify-center shadow-deep hover:bg-[#B3B3B3] hover:text-[#2B2B2B] transition-all duration-200 hover:scale-110 active:scale-95 z-10 border border-[#2B2B2B]/40"
                     >
                         <ChevronRight size={22} className="rotate-180" />
                     </button>
@@ -177,7 +177,7 @@ export default function PopularDestinations() {
                     <button
                         onClick={() => scrollBy(1)}
                         aria-label="Scroll right"
-                        className="absolute -right-3 sm:-right-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[#040809] text-[#FFFFFF] flex items-center justify-center shadow-deep hover:bg-[#4E3924] hover:text-[#040809] transition-all duration-200 hover:scale-110 active:scale-95 z-10 border border-[#040809]/40"
+                        className="absolute -right-3 sm:-right-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[#2B2B2B] text-[#FFFFFF] flex items-center justify-center shadow-deep hover:bg-[#B3B3B3] hover:text-[#2B2B2B] transition-all duration-200 hover:scale-110 active:scale-95 z-10 border border-[#2B2B2B]/40"
                     >
                         <ChevronRight size={22} />
                     </button>
