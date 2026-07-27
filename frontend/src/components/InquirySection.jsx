@@ -11,29 +11,31 @@ export default function InquirySection({ presetDestination }) {
   return (
     <section
       id="inquire"
-      className="relative bg-[#4E3924] text-white py-22 md:py-24 border-t border-[#4E3924]/30"
+      className="relative bg-[#4E3924] text-white py-12 md:py-24 border-t border-[#4E3924]/30"
     >
-      <div className="section-container grid lg:grid-cols-[0.85fr_1.15fr] gap-14 items-center">
-        <div>
-          <span className="eyebrow text-[#FFFFFF]">Let Us Help</span>
-          <h2 className="font-display font-semibold text-3xl md:text-4xl mt-3.5 mb-4.5 text-[#FFFFFF]">
-            Tell us where your heart wants to go
-          </h2>
-          <p className="text-white/70 leading-relaxed mb-6.5 text-[15px]">
-            Share a few details and your dedicated trip curator will reach out with a
-            tailored plan — usually within 24 hours.
-          </p>
-          <div className="flex flex-col gap-3.5">
-            {POINTS.map((point) => (
-              <div key={point} className="flex gap-3 items-start text-sm text-white/80">
-                <CheckCircle2 size={18} className="stroke-[#FFFFFF] flex-none mt-0.5" />
-                {point}
-              </div>
-            ))}
+      <div className="section-container">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-8 md:gap-14 items-start">
+          <div>
+            <span className="eyebrow text-[#FFFFFF]">Let Us Help</span>
+            <h2 className="font-display font-semibold text-2xl md:text-4xl mt-3.5 mb-4.5 text-[#FFFFFF]">
+              Tell us where your heart wants to go
+            </h2>
+            <p className="text-white/70 leading-relaxed mb-6.5 text-sm md:text-[15px]">
+              Share a few details and your dedicated trip curator will reach out with a
+              tailored plan — usually within 24 hours.
+            </p>
+            <div className="flex flex-col gap-3.5">
+              {POINTS.map((point) => (
+                <div key={point} className="flex gap-3 items-start text-xs md:text-sm text-white/80">
+                  <CheckCircle2 size={18} className="stroke-[#FFFFFF] flex-none mt-0.5" />
+                  {point}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <InquiryForm presetDestination={presetDestination} />
+          <InquiryForm presetDestination={presetDestination} />
+        </div>
       </div>
     </section>
   )

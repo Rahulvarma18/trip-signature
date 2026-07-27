@@ -76,7 +76,7 @@ export default function App() {
               onSearch={handleSearch}
               activeCategory={activeCategory}
               onSelectCategory={handleSelectCategory}
-              searchTerm={searchTerm}
+              searchTerm={searchTerm}                           
               onClearSearch={() => setSearchTerm('')}
               presetDestination={presetDestination}
             />
