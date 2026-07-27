@@ -142,7 +142,7 @@ export default function PopularDestinations() {
                                         {dest.country}
                                     </span>
                                     <span className="flex items-center gap-1 text-white text-[12px] font-medium bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15">
-                                        <Star size={11} className="fill-[#2B2B2B] stroke-[#2B2B2B]" />
+                                        <Star size={11} className="fill-[#D4AF37] stroke-[#D4AF37]" />
                                         {dest.rating}
                                     </span>
                                 </div>

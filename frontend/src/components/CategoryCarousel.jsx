@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 
 const CIRCLES = [
-    { key: 'easybook', label: 'Easy Book', icon: Smartphone, badge: 'New' },
+    // { key: 'easybook', label: 'Easy Book', icon: Smartphone, badge: 'New' },
     { key: 'beach', label: 'Beach', icon: Palmtree, categoryKey: 'beach' },
     { key: 'pilgrimage', label: 'Pilgrimage', icon: Landmark, categoryKey: 'pilgrimage' },
     { key: 'safari', label: 'Safari Trails', icon: Car, categoryKey: 'safari' },

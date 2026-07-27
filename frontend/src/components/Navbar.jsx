@@ -1,16 +1,34 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Search, Menu, X, User, LogOut, Phone } from 'lucide-react'
+import { useLenis } from '../lib/LenisProvider'
 
 export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth, onLogout, overlayHero }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const lenis = useLenis()
+  const navigate = useNavigate()
+
+  const handleLogoClick = (e) => {
+    e.preventDefault()
+    navigate('/')
+    // Scroll to top immediately
+    setTimeout(() => {
+      lenis?.current?.scrollTo(0, { immediate: true })
+    }, 0)
+  }
 
   useEffect(() => {
     if (!overlayHero) return
     const handler = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
+  }, [overlayHero])
+
+  useEffect(() => {
+    if (overlayHero) {
+      setScrolled(false)
+    }
   }, [overlayHero])
 
   const transparent = overlayHero && !scrolled
@@ -34,7 +52,8 @@ export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth
         {/* Logo */}
         <Link
           to="/"
-          className="font-display text-3xl tracking-tight text-white"
+          onClick={handleLogoClick}
+          className="font-display text-2xl tracking-tight text-white"
         >
           Trip<span className="font-signature mt-1 text-[#D4AF37]">Signature</span>
         </Link>

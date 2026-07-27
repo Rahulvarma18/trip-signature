@@ -11,7 +11,7 @@ export default function CategoryPage() {
 
     return (
         <div>
-            <section className="bg-[#040809] text-white py-16">
+            <section className="bg-[#4E3924] text-white py-16">
                 <div className="section-container">
                     <Link
                         to="/"
@@ -19,7 +19,7 @@ export default function CategoryPage() {
                     >
                         <ChevronLeft size={16} /> Back to Home
                     </Link>
-                    <span className="eyebrow text-[#040809]">{category.items.length} Destinations</span>
+                    {/* <span className="eyebrow text-[#040809] ml-6">{category.items.length} Destinations</span> */}
                     <h1 className="font-display font-semibold text-4xl md:text-5xl mt-3 mb-4">
                         {category.label}
                     </h1>

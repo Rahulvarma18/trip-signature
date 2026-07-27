@@ -11,7 +11,7 @@ export default function InquirySection({ presetDestination }) {
   return (
     <section
       id="inquire"
-      className="relative bg-[#1C130B] text-white py-22 md:py-24 border-t border-[#4E3924]/30"
+      className="relative bg-[#4E3924] text-white py-22 md:py-24 border-t border-[#4E3924]/30"
     >
       <div className="section-container grid lg:grid-cols-[0.85fr_1.15fr] gap-14 items-center">
         <div>

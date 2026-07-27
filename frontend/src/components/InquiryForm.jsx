@@ -125,7 +125,7 @@ export default function InquiryForm({ presetDestination }) {
               placeholder="Your full name"
               value={form.name}
               onChange={handleChange('name')}
-              className="form-input"
+              className="form-input text-black placeholder:text-gray-600"
             />
           </IconInput>
         </Field>
@@ -137,7 +137,7 @@ export default function InquiryForm({ presetDestination }) {
               placeholder="10-digit mobile number"
               value={form.phone}
               onChange={handleChange('phone')}
-              className="form-input"
+              className="form-input text-black placeholder:text-gray-600"
             />
           </IconInput>
         </Field>
@@ -148,7 +148,7 @@ export default function InquiryForm({ presetDestination }) {
               <select
                 value={form.destination}
                 onChange={handleChange('destination')}
-                className="form-input cursor-pointer"
+                className="form-input text-black cursor-pointer"
               >
                 <option value="">Select a destination</option>
                 {CATEGORY_LIST.map((cat) => (
@@ -170,7 +170,7 @@ export default function InquiryForm({ presetDestination }) {
               <select
                 value={form.travellers}
                 onChange={handleChange('travellers')}
-                className="form-input cursor-pointer"
+                className="form-input text-black cursor-pointer"
               >
                 {TRAVELLER_OPTIONS.map((opt) => (
                   <option key={opt} value={opt}>
@@ -188,7 +188,7 @@ export default function InquiryForm({ presetDestination }) {
               type="date"
               value={form.date}
               onChange={handleChange('date')}
-              className="form-input"
+              className="form-input text-black"
             />
           </IconInput>
         </Field>
@@ -200,7 +200,7 @@ export default function InquiryForm({ presetDestination }) {
               placeholder="you@example.com"
               value={form.email}
               onChange={handleChange('email')}
-              className="form-input"
+              className="form-input text-black placeholder:text-gray-600"
             />
           </IconInput>
         </Field>
@@ -219,7 +219,7 @@ export default function InquiryForm({ presetDestination }) {
             placeholder="Answer"
             value={captchaInput}
             onChange={(e) => setCaptchaInput(e.target.value)}
-            className="flex-1 min-w-0 border border-line rounded-md px-3 py-2.5 text-sm focus:border-[#040809] outline-none"
+            className="flex-1 min-w-0 border border-line rounded-md px-3 py-2.5 text-sm text-black placeholder:text-gray-600 focus:border-[#040809] outline-none"
           />
         </div>
         {errors.captcha && <p className="text-red-600 text-xs mb-3">{errors.captcha}</p>}
