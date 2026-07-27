@@ -10,9 +10,9 @@ import DestinationPage from './pages/DestinationPage'
 import { useLenis, scrollToId } from './lib/LenisProvider'
 
 // Import animation presets
-import { subtleFade } from './animations/animationPresets'
+import { fadeSlideUp } from './animations/animationPresets'
 
-const pageVariants = subtleFade
+const pageVariants = fadeSlideUp
 
 export default function App() {
   const navigate = useNavigate()
