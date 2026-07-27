@@ -205,12 +205,12 @@ export default function InquiryForm({ presetDestination }) {
           </IconInput>
         </Field>
 
-        <div className="bg-ivory border border-line rounded-md px-4.5 py-4 flex items-center gap-3.5 mb-1">
-          <span className="flex items-center gap-1.5 text-[11.5px] font-semibold uppercase tracking-wide text-[#040809] flex-none">
+        <div className="bg-ivory border border-line rounded-md px-3 sm:px-4.5 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3.5 mb-1">
+          <span className="flex items-center gap-1.5 text-[10px] sm:text-[11.5px] font-semibold uppercase tracking-wide text-[#040809] flex-none">
             <ShieldCheck size={15} />
             Verified Human
           </span>
-          <div className="bg-[#040809] text-white rounded-md px-4 py-2.5 font-semibold text-sm whitespace-nowrap">
+          <div className="bg-[#040809] text-white rounded-md px-3 sm:px-4 py-2.5 font-semibold text-xs sm:text-sm whitespace-nowrap">
             {captcha.a} + {captcha.b} = ?
           </div>
           <input
@@ -219,7 +219,7 @@ export default function InquiryForm({ presetDestination }) {
             placeholder="Answer"
             value={captchaInput}
             onChange={(e) => setCaptchaInput(e.target.value)}
-            className="flex-1 min-w-0 border border-line rounded-md px-3 py-2.5 text-sm text-black placeholder:text-gray-600 focus:border-[#040809] outline-none"
+            className="w-full sm:flex-1 min-w-0 border border-line rounded-md px-3 py-2.5 text-sm text-black placeholder:text-gray-600 focus:border-[#040809] outline-none"
           />
         </div>
         {errors.captcha && <p className="text-red-600 text-xs mb-3">{errors.captcha}</p>}
