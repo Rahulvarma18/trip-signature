@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage'
 import CategoryPage from './pages/CategoryPage'
 import DestinationPage from './pages/DestinationPage'
 import { useLenis, scrollToId } from './lib/LenisProvider'
+import { useAuth } from './lib/useAuth'
 
 // Import animation presets
 import { fadeSlideUp } from './animations/animationPresets'
@@ -23,7 +24,7 @@ export default function App() {
   const [presetDestination, setPresetDestination] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [authMode, setAuthMode] = useState(null)
-  const [user, setUser] = useState(null)
+  const { user, login, signup, loginWithGoogle, logout } = useAuth()
 
   const handleSelectCategory = (categoryKey) => {
     setSearchTerm('')
@@ -73,7 +74,7 @@ export default function App() {
         onGoToPackages={handleGoToPackages}
         user={user}
         onOpenAuth={setAuthMode}
-        onLogout={() => setUser(null)}
+        onLogout={logout}
         overlayHero={isHome}
       />
 
@@ -135,8 +136,16 @@ export default function App() {
           mode={authMode}
           onClose={() => setAuthMode(null)}
           onSwitchMode={setAuthMode}
-          onAuthenticated={(u) => {
-            setUser(u)
+          onLogin={async (credentials) => {
+            await login(credentials)
+            setAuthMode(null)
+          }}
+          onSignup={async (details) => {
+            await signup(details)
+            setAuthMode(null)
+          }}
+          onGoogleAuth={async (idToken) => {
+            await loginWithGoogle(idToken)
             setAuthMode(null)
           }}
         />
