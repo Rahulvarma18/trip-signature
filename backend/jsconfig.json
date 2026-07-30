@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "forceConsistentCasingInFileNames": false,
+    "checkJs": false
+  },
+  "exclude": ["node_modules"]
+}

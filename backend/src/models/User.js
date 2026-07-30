@@ -1,5 +1,5 @@
 // src/models/User.js
-// User schema with email/password and Google OAuth support
+// User schema with authentication fields
 
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
@@ -75,10 +75,6 @@ const userSchema = new mongoose.Schema(
         }
     }
 )
-
-// Index for faster queries
-userSchema.index({ email: 1 })
-userSchema.index({ googleId: 1 })
 
 // Hash password before saving (only for email/password auth)
 userSchema.pre('save', async function (next) {
