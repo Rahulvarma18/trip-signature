@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Search, Menu, X, User, LogOut, Phone } from 'lucide-react'
+import { Search, Menu, X, User, LogOut, Phone, ShieldCheck } from 'lucide-react'
 import { useLenis } from '../lib/LenisProvider'
 
 export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth, onLogout, overlayHero }) {
@@ -162,12 +162,23 @@ export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth
             ))}
             <li className="flex items-center gap-3 pt-2 border-t border-white/10">
               {user ? (
-                <button
-                  onClick={onLogout}
-                  className="text-sm font-medium text-white flex items-center gap-1.5"
-                >
-                  <LogOut size={15} /> Log out ({user.name})
-                </button>
+                <>
+                  {user.isAdmin && (
+                    <Link
+                      to="/admin"
+                      onClick={() => setOpen(false)}
+                      className="text-sm font-medium text-white flex items-center gap-1.5"
+                    >
+                      <ShieldCheck size={15} /> Admin
+                    </Link>
+                  )}
+                  <button
+                    onClick={onLogout}
+                    className="text-sm font-medium text-white flex items-center gap-1.5"
+                  >
+                    <LogOut size={15} /> Log out ({user.name})
+                  </button>
+                </>
               ) : (
                 <>
                   <button
@@ -207,6 +218,15 @@ function UserMenu({ user, onLogout }) {
       </button>
       {open && (
         <div className="absolute right-0 mt-2 w-44 bg-white border border-line rounded-md shadow-signature py-2">
+          {user.isAdmin && (
+            <Link
+              to="/admin"
+              onClick={() => setOpen(false)}
+              className="w-full flex items-center gap-2 px-4 py-2 text-sm text-ink hover:bg-neutral-100 hover:text-black transition-colors"
+            >
+              <ShieldCheck size={15} /> Admin Panel
+            </Link>
+          )}
           <button
             onClick={() => { onLogout(); setOpen(false) }}
             className="w-full flex items-center gap-2 px-4 py-2 text-sm text-ink hover:bg-neutral-100 hover:text-black transition-colors"

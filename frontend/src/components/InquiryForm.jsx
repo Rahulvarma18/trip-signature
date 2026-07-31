@@ -11,6 +11,8 @@ import {
   CheckCircle2
 } from 'lucide-react'
 import { CATEGORY_LIST, TRAVELLER_OPTIONS } from '../data/destinations'
+import { inquiryApi, ApiError } from '../lib/api'
+import { getStoredToken } from '../lib/useAuth'
 
 const initialForm = {
   name: '',
@@ -34,6 +36,7 @@ export default function InquiryForm({ presetDestination }) {
   const [captchaInput, setCaptchaInput] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [formError, setFormError] = useState('')
 
   useEffect(() => {
     if (presetDestination) {
@@ -50,6 +53,7 @@ export default function InquiryForm({ presetDestination }) {
     setCaptcha(makeCaptcha())
     setCaptchaInput('')
     setErrors({})
+    setFormError('')
     setSubmitted(false)
   }, [])
 
@@ -74,23 +78,32 @@ export default function InquiryForm({ presetDestination }) {
     if (!validate()) return
 
     setSubmitting(true)
+    setFormError('')
 
-    // Frontend-only for now: no API call yet. Swap this block out for a real
-    // request (e.g. axios.post('/api/inquiries', {...})) once the backend is wired up.
     const payload = {
       name: form.name.trim(),
-      phone: form.phone.trim(),
+      phone: form.phone.replace(/\D/g, ''),
       destination: form.destination || 'Not specified',
       travellers: form.travellers,
       travelDate: form.date || null,
       email: form.email.trim() || null
     }
-    console.log('Enquiry submitted (frontend-only):', payload)
 
-    setTimeout(() => {
-      setSubmitting(false)
+    try {
+      await inquiryApi.create(payload, getStoredToken())
       setSubmitted(true)
-    }, 500)
+    } catch (err) {
+      if (err instanceof ApiError && err.fieldErrors?.length) {
+        const fieldMap = {}
+        err.fieldErrors.forEach((fe) => {
+          if (fe?.field) fieldMap[fe.field] = fe.message
+        })
+        setErrors((prev) => ({ ...prev, ...fieldMap }))
+      }
+      setFormError(err.message || 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (submitted) {
@@ -118,6 +131,12 @@ export default function InquiryForm({ presetDestination }) {
       </p>
 
       <form onSubmit={handleSubmit} noValidate className="relative">
+        {formError && (
+          <div className="mb-4.5 rounded-md border border-red-300 bg-red-50 px-3.5 py-2.5 text-[13px] text-red-700">
+            {formError}
+          </div>
+        )}
+
         <Field label="Name" required error={errors.name}>
           <IconInput icon={User}>
             <input

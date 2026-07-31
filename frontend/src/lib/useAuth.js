@@ -28,6 +28,12 @@ function saveStored(session) {
     }
 }
 
+// For places outside the React tree (or that don't need reactive state) that
+// just need the current token, e.g. attaching it to a one-off form submission.
+export function getStoredToken() {
+    return loadStored()?.token || null
+}
+
 export function useAuth() {
     const [session, setSession] = useState(loadStored)
     const [checking, setChecking] = useState(!!loadStored()?.token)
@@ -96,5 +102,5 @@ export function useAuth() {
         saveStored(null)
     }, [token])
 
-    return { user, checking, login, signup, loginWithGoogle, logout }
+    return { user, checking, token, login, signup, loginWithGoogle, logout }
 }

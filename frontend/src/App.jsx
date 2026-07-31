@@ -7,6 +7,8 @@ import AuthModal from './components/AuthModal'
 import HomePage from './pages/HomePage'
 import CategoryPage from './pages/CategoryPage'
 import DestinationPage from './pages/DestinationPage'
+import AdminPage from './pages/AdminPage'
+import AdminRoute from './components/AdminRoute'
 import { useLenis, scrollToId } from './lib/LenisProvider'
 import { useAuth } from './lib/useAuth'
 
@@ -24,7 +26,7 @@ export default function App() {
   const [presetDestination, setPresetDestination] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [authMode, setAuthMode] = useState(null)
-  const { user, login, signup, loginWithGoogle, logout } = useAuth()
+  const { user, checking, token, login, signup, loginWithGoogle, logout } = useAuth()
 
   const handleSelectCategory = (categoryKey) => {
     setSearchTerm('')
@@ -123,6 +125,21 @@ export default function App() {
                 exit="exit"
               >
                 <DestinationPage onEnquire={handleEnquire} />
+              </motion.div>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <motion.div
+                variants={pageVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                <AdminRoute user={user} checking={checking}>
+                  <AdminPage token={token} adminName={user?.name} />
+                </AdminRoute>
               </motion.div>
             }
           />

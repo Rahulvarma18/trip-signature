@@ -60,4 +60,43 @@ export const authApi = {
     logout: (token) => request('/auth/logout', { method: 'POST', token })
 }
 
+export const destinationsApi = {
+    list: ({ category, all, token } = {}) => {
+        const params = new URLSearchParams()
+        if (category) params.set('category', category)
+        if (all) params.set('all', 'true')
+        const qs = params.toString()
+        return request(`/destinations${qs ? `?${qs}` : ''}`, { token })
+    },
+
+    create: (payload, token) => request('/destinations', { method: 'POST', body: payload, token }),
+
+    update: (slug, payload, token) =>
+        request(`/destinations/${encodeURIComponent(slug)}`, { method: 'PUT', body: payload, token }),
+
+    remove: (slug, token) =>
+        request(`/destinations/${encodeURIComponent(slug)}`, { method: 'DELETE', token })
+}
+
+export const inquiryApi = {
+    create: (payload, token) => request('/inquiry/create', { method: 'POST', body: payload, token }),
+
+    adminList: ({ status, limit, offset, token } = {}) => {
+        const params = new URLSearchParams()
+        if (status) params.set('status', status)
+        if (limit) params.set('limit', limit)
+        if (offset) params.set('offset', offset)
+        const qs = params.toString()
+        return request(`/inquiry/admin/all${qs ? `?${qs}` : ''}`, { token })
+    },
+
+    adminStats: (token) => request('/inquiry/admin/stats', { token }),
+
+    updateStatus: (inquiryId, status, token) =>
+        request(`/inquiry/${inquiryId}/status`, { method: 'PATCH', body: { status }, token }),
+
+    addNote: (inquiryId, text, token) =>
+        request(`/inquiry/${inquiryId}/note`, { method: 'POST', body: { text }, token })
+}
+
 export { ApiError }

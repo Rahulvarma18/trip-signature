@@ -72,6 +72,10 @@ html {
     @apply w-full bg-transparent border-none outline-none py-3.5 text-[14.5px] appearance-none;
   }
 
+  .form-field-input {
+    @apply w-full border border-line rounded-md px-3.5 py-2.5 text-sm text-black placeholder:text-gray-500 bg-white focus:border-[#040809] outline-none transition-colors;
+  }
+
   .footer-link {
     @apply text-[13.5px] text-white/70 hover:text-white transition-colors;
   }

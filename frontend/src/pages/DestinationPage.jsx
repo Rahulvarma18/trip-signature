@@ -10,9 +10,10 @@ import {
     ChevronRight,
     Phone,
     ShieldCheck,
-    Users
+    Users,
+    Loader2
 } from 'lucide-react'
-import { CATEGORIES } from '../data/destinations'
+import { useDestinations } from '../lib/useDestinations'
 import {
     getGallery,
     getItinerary,
@@ -26,7 +27,8 @@ import { CONTACT } from '../data/destinations'
 
 export default function DestinationPage({ onEnquire }) {
     const { categoryKey, slug } = useParams()
-    const category = CATEGORIES[categoryKey]
+    const { categories, loading, error } = useDestinations()
+    const category = categories[categoryKey]
     const item = category?.items.find((i) => i.slug === slug)
 
     const gallery = useMemo(() => (item ? getGallery(item) : []), [item])
@@ -37,6 +39,22 @@ export default function DestinationPage({ onEnquire }) {
     const reviewAvg = useMemo(() => (item ? averageRating(reviews, item.rating) : 0), [reviews, item])
 
     const [activeImage, setActiveImage] = useState(0)
+
+    if (loading) {
+        return (
+            <div className="min-h-[50vh] flex items-center justify-center gap-2 text-ink-soft text-sm">
+                <Loader2 size={16} className="animate-spin" /> Loading destination…
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className="min-h-[50vh] flex items-center justify-center text-red-600 text-sm px-6 text-center">
+                {error}
+            </div>
+        )
+    }
 
     if (!category || !item) return <Navigate to="/" replace />
 

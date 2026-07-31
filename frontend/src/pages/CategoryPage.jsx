@@ -1,11 +1,28 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
-import { ChevronLeft } from 'lucide-react'
-import { CATEGORIES, CATEGORY_LIST } from '../data/destinations'
+import { ChevronLeft, Loader2 } from 'lucide-react'
+import { useDestinations } from '../lib/useDestinations'
 import DestinationCard from '../components/DestinationCard'
 
 export default function CategoryPage() {
     const { categoryKey } = useParams()
-    const category = CATEGORIES[categoryKey]
+    const { categories, categoryList, loading, error } = useDestinations()
+    const category = categories[categoryKey]
+
+    if (loading) {
+        return (
+            <div className="min-h-[50vh] flex items-center justify-center gap-2 text-ink-soft text-sm">
+                <Loader2 size={16} className="animate-spin" /> Loading destinations…
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className="min-h-[50vh] flex items-center justify-center text-red-600 text-sm px-6 text-center">
+                {error}
+            </div>
+        )
+    }
 
     if (!category) return <Navigate to="/" replace />
 
@@ -19,7 +36,6 @@ export default function CategoryPage() {
                     >
                         <ChevronLeft size={16} /> Back to Home
                     </Link>
-                    {/* <span className="eyebrow text-[#040809] ml-6">{category.items.length} Destinations</span> */}
                     <h1 className="font-display font-semibold text-4xl md:text-5xl mt-3 mb-4">
                         {category.label}
                     </h1>
@@ -30,7 +46,7 @@ export default function CategoryPage() {
             <section className="py-14">
                 <div className="section-container">
                     <div className="flex flex-wrap gap-2.5 mb-10">
-                        {CATEGORY_LIST.map((cat) => (
+                        {categoryList.map((cat) => (
                             <Link
                                 key={cat.key}
                                 to={`/category/${cat.key}`}
