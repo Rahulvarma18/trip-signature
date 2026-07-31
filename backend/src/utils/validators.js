@@ -102,7 +102,7 @@ const createInquirySchema = Joi.object({
         }),
     travellers: Joi.string()
         .required()
-        .valid('1', '2', '3', '4', '5', '6', '7', '8', '9', '10+')
+        .valid('Solo', '2', '3', '4+')
         .messages({
             'string.empty': 'Number of travellers is required',
             'any.only': 'Invalid number of travellers'
@@ -127,6 +127,39 @@ const createInquirySchema = Joi.object({
             'string.max': 'Special requests cannot exceed 1000 characters'
         })
 })
+
+// ==========================================
+// DESTINATION VALIDATORS (Admin)
+// ==========================================
+
+const createDestinationSchema = Joi.object({
+    name: Joi.string().required().min(2).max(100).trim().messages({
+        'string.empty': 'Name is required'
+    }),
+    category: Joi.string().required().trim().messages({
+        'string.empty': 'Category is required'
+    }),
+    categoryLabel: Joi.string().optional().allow('', null).trim(),
+    price: Joi.string().required().trim().messages({
+        'string.empty': 'Price is required'
+    }),
+    duration: Joi.string().required().trim().messages({
+        'string.empty': 'Duration is required'
+    }),
+    rating: Joi.number().min(0).max(5).optional(),
+    description: Joi.string().required().min(10).trim().messages({
+        'string.empty': 'Description is required',
+        'string.min': 'Description must be at least 10 characters'
+    }),
+    highlights: Joi.array().items(Joi.string().trim()).optional(),
+    image: Joi.string().optional().allow('', null).trim(),
+    isActive: Joi.boolean().optional()
+})
+
+const updateDestinationSchema = createDestinationSchema.fork(
+    ['name', 'category', 'price', 'duration', 'description'],
+    (schema) => schema.optional()
+)
 
 // ==========================================
 // VALIDATION FUNCTION
@@ -155,6 +188,8 @@ module.exports = {
         emailSignup: emailSignupSchema,
         emailLogin: emailLoginSchema,
         googleAuth: googleAuthSchema,
-        createInquiry: createInquirySchema
+        createInquiry: createInquirySchema,
+        createDestination: createDestinationSchema,
+        updateDestination: updateDestinationSchema
     }
 }

@@ -34,22 +34,14 @@ const inquirySchema = new mongoose.Schema(
         destination: {
             type: String,
             required: [true, 'Destination is required'],
-            enum: [
-                'Varanasi', 'Rishikesh', 'Haridwar', 'Mathura', 'Agra', 'Ayodhya',
-                'Maldives', 'Bali', 'Fiji', 'Mauritius', 'Greece', 'Thailand',
-                'Nepal', 'Bhutan', 'Tibet', 'Himalayas', 'Kodaikanal', 'Ooty',
-                'Goa', 'Kerala', 'Andaman', 'Ladakh',
-                'Dubai', 'Switzerland', 'France', 'Italy',
-                'Japan', 'Singapore', 'Malaysia',
-                'Manali', 'Shimla', 'Darjeeling',
-                'Other'
-            ],
+            trim: true,
+            maxlength: [100, 'Destination name is too long'],
             default: 'Other'
         },
         travellers: {
             type: String,
             required: [true, 'Number of travellers is required'],
-            enum: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10+'],
+            enum: ['Solo', '2', '3', '4+'],
             default: '2'
         },
         travelDate: {
