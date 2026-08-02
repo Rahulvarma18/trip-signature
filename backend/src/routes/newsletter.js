@@ -2,7 +2,7 @@
 
 const express = require('express')
 const router = express.Router()
-const newsletterController = require('../controllers/newsletterController')
+const newsletterController = require('../controllers/newsLetterController')
 const { protect, isAdmin } = require('../middleware/authMiddleware')
 const { asyncHandler } = require('../middleware/errorHandler')
 
