@@ -9,6 +9,10 @@ import CategoryPage from './pages/CategoryPage'
 import DestinationPage from './pages/DestinationPage'
 import AdminPage from './pages/AdminPage'
 import AdminRoute from './components/AdminRoute'
+import AboutPage from './components/AboutPage'
+import PrivacyPolicyPage from './components/PrivacyPolicyPage'
+import TermsOfServicePage from './components/TermsOfServicePage'
+import CookiesPage from './components/CookiesPage'
 import { useLenis, scrollToId } from './lib/LenisProvider'
 import { useAuth } from './lib/useAuth'
 
@@ -145,6 +149,38 @@ export default function App() {
                 <AdminRoute user={user} checking={checking}>
                   <AdminPage token={token} adminName={user?.name} />
                 </AdminRoute>
+              </motion.div>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+                <AboutPage />
+              </motion.div>
+            }
+          />
+          <Route
+            path="/privacy"
+            element={
+              <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+                <PrivacyPolicyPage />
+              </motion.div>
+            }
+          />
+          <Route
+            path="/terms"
+            element={
+              <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+                <TermsOfServicePage />
+              </motion.div>
+            }
+          />
+          <Route
+            path="/cookies"
+            element={
+              <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+                <CookiesPage />
               </motion.div>
             }
           />

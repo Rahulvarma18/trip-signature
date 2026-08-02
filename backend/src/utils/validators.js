@@ -180,6 +180,17 @@ const createReviewSchema = Joi.object({
 })
 
 // ==========================================
+// NEWSLETTER VALIDATOR
+// ==========================================
+
+const subscribeSchema = Joi.object({
+    email: Joi.string().required().email().trim().lowercase().messages({
+        'string.empty': 'Email is required',
+        'string.email': 'Please enter a valid email address'
+    })
+})
+
+// ==========================================
 // VALIDATION FUNCTION
 // ==========================================
 
@@ -209,6 +220,7 @@ module.exports = {
         createInquiry: createInquirySchema,
         createDestination: createDestinationSchema,
         updateDestination: updateDestinationSchema,
-        createReview: createReviewSchema
+        createReview: createReviewSchema,
+        subscribe: subscribeSchema
     }
 }

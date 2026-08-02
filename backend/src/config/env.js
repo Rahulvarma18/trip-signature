@@ -4,10 +4,6 @@
 const requiredEnvVars = [
     'MONGODB_URI',
     'JWT_SECRET',
-    'GOOGLE_CLIENT_ID',
-    'GOOGLE_CLIENT_SECRET',
-    'EMAIL_USER',
-    'EMAIL_PASSWORD',
     'FRONTEND_URL'
 ]
 
@@ -25,8 +21,11 @@ module.exports = {
     MONGODB_URI: process.env.MONGODB_URI,
     JWT_SECRET: process.env.JWT_SECRET,
     JWT_EXPIRY: process.env.JWT_EXPIRY || '7d',
+    // Optional — only needed for "Continue with Google". The /auth/google
+    // route itself fails gracefully (not a server crash) if hit without these.
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    // Optional — currently unused by any route, kept for future email features.
     EMAIL_USER: process.env.EMAIL_USER,
     EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
     FRONTEND_URL: process.env.FRONTEND_URL,

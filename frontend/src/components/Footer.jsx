@@ -1,17 +1,29 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react'
+import { Phone, Mail, MapPin, ArrowRight, Loader2 } from 'lucide-react'
 import { CATEGORY_LIST, CONTACT } from '../data/destinations'
+import { newsletterApi, ApiError } from '../lib/api'
 
 export default function Footer() {
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault()
     if (!email.trim()) return
-    setSubscribed(true)
-    setEmail('')
+    setError('')
+    setSubmitting(true)
+    try {
+      await newsletterApi.subscribe(email.trim())
+      setSubscribed(true)
+      setEmail('')
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -45,10 +57,10 @@ export default function Footer() {
           <div>
             <h4 className="text-xs tracking-[0.12em] uppercase text-white mb-4">Company</h4>
             <ul className="flex flex-col gap-2.5">
-              <li><a href="#" className="footer-link">About Us</a></li>
+              <li><Link to="/about" className="footer-link">About Us</Link></li>
               <li><Link to="/#inquire" className="footer-link">Plan a Trip</Link></li>
-              <li><a href="#" className="footer-link">Privacy Policy</a></li>
-              <li><a href="#" className="footer-link">Terms of Service</a></li>
+              <li><Link to="/privacy" className="footer-link">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="footer-link">Terms of Service</Link></li>
             </ul>
             <div className="mt-6 flex flex-col gap-2.5">
               <div className="flex gap-2.5 text-[13.5px] items-start">
@@ -81,26 +93,33 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email address"
-                  className="flex-1 min-w-0 bg-white/10 border border-white/20 rounded-l-sm px-3.5 py-2.5 text-sm text-white placeholder:text-white/40 outline-none focus:border-[#F8F0CA]"
+                  disabled={submitting}
+                  className="flex-1 min-w-0 bg-white/10 border border-white/20 rounded-l-sm px-3.5 py-2.5 text-sm text-white placeholder:text-white/40 outline-none focus:border-[#F8F0CA] disabled:opacity-60"
                 />
                 <button
                   type="submit"
-                  className="bg-[#040809] text-[#F8F0CA] hover:bg-[#4E3924] transition-colors px-4 rounded-r-sm flex items-center justify-center font-medium"
+                  disabled={submitting}
+                  className="bg-[#040809] text-[#F8F0CA] hover:bg-[#4E3924] transition-colors px-4 rounded-r-sm flex items-center justify-center font-medium disabled:opacity-60"
                   aria-label="Subscribe"
                 >
-                  <ArrowRight size={16} className="stroke-[#F8F0CA]" />
+                  {submitting ? (
+                    <Loader2 size={16} className="animate-spin stroke-[#F8F0CA]" />
+                  ) : (
+                    <ArrowRight size={16} className="stroke-[#F8F0CA]" />
+                  )}
                 </button>
               </form>
             )}
+            {error && <p className="text-red-300 text-xs mt-2">{error}</p>}
           </div>
         </div>
 
         <div className="border-t border-white/10 pt-5 flex flex-wrap justify-between gap-2.5 text-[12.5px] text-white/40">
           <span>&copy; {new Date().getFullYear()} TripSignature Exploration. All rights reserved.</span>
           <div className="flex gap-5">
-            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
-            <a href="#" className="hover:text-white transition-colors">Cookies</a>
+            <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+            <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <Link to="/cookies" className="hover:text-white transition-colors">Cookies</Link>
           </div>
         </div>
       </div>

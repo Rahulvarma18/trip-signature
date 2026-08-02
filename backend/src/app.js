@@ -11,6 +11,7 @@ const authRoutes = require('./routes/auth')
 const inquiryRoutes = require('./routes/inquiry')
 const destinationRoutes = require('./routes/destination')
 const uploadRoutes = require('./routes/upload')
+const newsletterRoutes = require('./routes/newsletter')
 
 // Create Express app
 const app = express()
@@ -65,6 +66,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/inquiry', inquiryRoutes)
 app.use('/api/destinations', destinationRoutes)
 app.use('/api/uploads', uploadRoutes)
+app.use('/api/newsletter', newsletterRoutes)
 
 // ==========================================
 // 404 & ERROR HANDLING

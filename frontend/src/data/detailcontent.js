@@ -49,12 +49,30 @@ const DAY_TEMPLATES = {
     middle: [
         'A full day exploring {name}, with time built in to move at your own pace.',
         'Continue on to the heart of the experience — this is what {name} is really about.',
-        'A quieter day of shorter excursions and free time to soak it all in.'
+        'A quieter day of shorter excursions and free time to soak it all in.',
+        'Today is built around {name}, with a mix of guided time and time to wander on your own.',
+        'An immersive day centred on {name}, paced so it never feels rushed.',
+        'A dedicated day for {name} — one of the highlights of this trip.'
     ],
     last: [
         'Final sights and a relaxed morning before departure.',
-        'Check out and transfer back, with the trip wrapping up on a easy note.'
+        'Check out and transfer back, with the trip wrapping up on an easy note.'
     ]
+}
+
+function shuffledCopy(rng, arr) {
+    const copy = [...arr]
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1))
+            ;[copy[i], copy[j]] = [copy[j], copy[i]]
+    }
+    return copy
+}
+
+// Picks from `pool`, avoiding `exclude` when there's another option to pick.
+function pickAvoiding(rng, pool, exclude) {
+    const options = pool.filter((v) => v !== exclude)
+    return options.length ? pick(rng, options) : pick(rng, pool)
 }
 
 export function getItinerary(item) {
@@ -62,23 +80,66 @@ export function getItinerary(item) {
     const rng = mulberry32(seedFromString(item.name + 'itin'))
     const highlights = item.highlights && item.highlights.length ? item.highlights : [item.name]
 
-    const plan = []
-    for (let d = 1; d <= days; d++) {
-        let title
-        let text
-        if (d === 1) {
-            title = `Arrival${days > 1 ? ' & Settling In' : ''}`
-            text = pick(rng, DAY_TEMPLATES.first)
-        } else if (d === days && days > 1) {
-            title = 'Departure'
-            text = pick(rng, DAY_TEMPLATES.last)
-        } else {
-            const h = highlights[(d - 2) % highlights.length]
-            title = h
-            text = pick(rng, DAY_TEMPLATES.middle).replace('{name}', h)
-        }
-        plan.push({ day: d, title, text })
+    // Very short trips: don't waste an entire day on "arrival" and another
+    // entire day on "departure" with nothing in between — fold the actual
+    // activity into both days instead.
+    if (days === 1) {
+        return [
+            {
+                day: 1,
+                title: item.name,
+                text: `A full day covering the best of ${item.name} — arrival, the main experience, and departure, all in one well-paced day.`
+            }
+        ]
     }
+
+    if (days === 2) {
+        const first = highlights[0]
+        const second = highlights[1] || highlights[0]
+        return [
+            {
+                day: 1,
+                title: `Arrival & ${first}`,
+                text: `Arrive and settle in, then head straight into ${first.toLowerCase()} — no time lost on a short trip like this.`
+            },
+            {
+                day: 2,
+                title: `${second} & Departure`,
+                text: `A last look at ${second.toLowerCase()}, then check out and transfer back for departure.`
+            }
+        ]
+    }
+
+    // 3+ days: rotate through a shuffled copy of the highlights so middle
+    // days don't march through them in the same fixed order every time,
+    // and avoid repeating the same title or template text back-to-back —
+    // or the same title+text combo again later, if a title has to repeat.
+    const rotation = shuffledCopy(rng, highlights)
+    const plan = [{ day: 1, title: 'Arrival & Settling In', text: pick(rng, DAY_TEMPLATES.first) }]
+
+    let prevTitle = null
+    let prevTemplate = null
+    const templatesUsedForTitle = {}
+    for (let d = 2; d < days; d++) {
+        let idx = (d - 2) % rotation.length
+        let title = rotation[idx]
+        if (title === prevTitle && rotation.length > 1) {
+            idx = (idx + 1) % rotation.length
+            title = rotation[idx]
+        }
+        prevTitle = title
+
+        const alreadyUsedForTitle = templatesUsedForTitle[title] || []
+        const avoid = new Set([prevTemplate, ...alreadyUsedForTitle])
+        const options = DAY_TEMPLATES.middle.filter((t) => !avoid.has(t))
+        const template = options.length ? pick(rng, options) : pickAvoiding(rng, DAY_TEMPLATES.middle, prevTemplate)
+        templatesUsedForTitle[title] = [...alreadyUsedForTitle, template]
+        prevTemplate = template
+
+        plan.push({ day: d, title, text: template.replace('{name}', title) })
+    }
+
+    plan.push({ day: days, title: 'Departure', text: pick(rng, DAY_TEMPLATES.last) })
     return plan
 }
 

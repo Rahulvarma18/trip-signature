@@ -116,6 +116,10 @@ export const reviewApi = {
         request(`/destinations/${encodeURIComponent(slug)}/reviews/${reviewId}`, { method: 'DELETE', token })
 }
 
+export const newsletterApi = {
+    subscribe: (email) => request('/newsletter/subscribe', { method: 'POST', body: { email } })
+}
+
 export const uploadApi = {
     // multipart/form-data upload — deliberately not using the shared
     // `request()` helper since that always sets Content-Type: application/json.
