@@ -99,6 +99,23 @@ export const inquiryApi = {
         request(`/inquiry/${inquiryId}/note`, { method: 'POST', body: { text }, token })
 }
 
+export const reviewApi = {
+    list: (slug) => request(`/destinations/${encodeURIComponent(slug)}/reviews`),
+
+    create: (slug, payload, token) =>
+        request(`/destinations/${encodeURIComponent(slug)}/reviews`, { method: 'POST', body: payload, token }),
+
+    update: (slug, reviewId, payload, token) =>
+        request(`/destinations/${encodeURIComponent(slug)}/reviews/${reviewId}`, {
+            method: 'PUT',
+            body: payload,
+            token
+        }),
+
+    remove: (slug, reviewId, token) =>
+        request(`/destinations/${encodeURIComponent(slug)}/reviews/${reviewId}`, { method: 'DELETE', token })
+}
+
 export const uploadApi = {
     // multipart/form-data upload — deliberately not using the shared
     // `request()` helper since that always sets Content-Type: application/json.

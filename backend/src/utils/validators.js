@@ -163,6 +163,23 @@ const updateDestinationSchema = createDestinationSchema.fork(
 )
 
 // ==========================================
+// REVIEW VALIDATORS
+// ==========================================
+
+const createReviewSchema = Joi.object({
+    rating: Joi.number().required().min(1).max(5).messages({
+        'any.required': 'Rating is required',
+        'number.min': 'Rating must be at least 1',
+        'number.max': 'Rating cannot be more than 5'
+    }),
+    comment: Joi.string().required().min(10).max(1000).trim().messages({
+        'string.empty': 'Review text is required',
+        'string.min': 'Review should be at least 10 characters',
+        'string.max': 'Review is too long (max 1000 characters)'
+    })
+})
+
+// ==========================================
 // VALIDATION FUNCTION
 // ==========================================
 
@@ -191,6 +208,7 @@ module.exports = {
         googleAuth: googleAuthSchema,
         createInquiry: createInquirySchema,
         createDestination: createDestinationSchema,
-        updateDestination: updateDestinationSchema
+        updateDestination: updateDestinationSchema,
+        createReview: createReviewSchema
     }
 }

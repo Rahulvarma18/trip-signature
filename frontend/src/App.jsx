@@ -124,7 +124,12 @@ export default function App() {
                 animate="animate"
                 exit="exit"
               >
-                <DestinationPage onEnquire={handleEnquire} />
+                <DestinationPage
+                  onEnquire={handleEnquire}
+                  user={user}
+                  token={token}
+                  onRequireAuth={() => setAuthMode('login')}
+                />
               </motion.div>
             }
           />

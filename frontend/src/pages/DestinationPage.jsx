@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import {
     ChevronLeft,
@@ -11,7 +11,10 @@ import {
     Phone,
     ShieldCheck,
     Users,
-    Loader2
+    Loader2,
+    BadgeCheck,
+    Pencil,
+    Trash2
 } from 'lucide-react'
 import { useDestinations } from '../lib/useDestinations'
 import {
@@ -23,9 +26,11 @@ import {
     averageRating
 } from '../data/detailcontent'
 import DestinationCard from '../components/DestinationCard'
+import ReviewForm from '../components/ReviewForm'
+import { reviewApi } from '../lib/api'
 import { CONTACT } from '../data/destinations'
 
-export default function DestinationPage({ onEnquire }) {
+export default function DestinationPage({ onEnquire, user, token, onRequireAuth }) {
     const { categoryKey, slug } = useParams()
     const { categories, loading, error } = useDestinations()
     const category = categories[categoryKey]
@@ -35,10 +40,72 @@ export default function DestinationPage({ onEnquire }) {
     const itinerary = useMemo(() => (item ? getItinerary(item) : []), [item])
     const inclusions = useMemo(() => (category ? getInclusions(category.key) : []), [category])
     const exclusions = useMemo(() => (category ? getExclusions(category.key) : []), [category])
-    const reviews = useMemo(() => (item ? getReviews(item) : []), [item])
-    const reviewAvg = useMemo(() => (item ? averageRating(reviews, item.rating) : 0), [reviews, item])
+    const demoReviews = useMemo(() => (item ? getReviews(item) : []), [item])
 
     const [activeImage, setActiveImage] = useState(0)
+
+    // ---------- Real, user-submitted reviews ----------
+    const [realReviews, setRealReviews] = useState([])
+    const [reviewStats, setReviewStats] = useState({ average: null, count: 0 })
+    const [reviewsLoading, setReviewsLoading] = useState(true)
+    const [showReviewForm, setShowReviewForm] = useState(false)
+    const [editingReview, setEditingReview] = useState(false)
+    const [deletingReview, setDeletingReview] = useState(false)
+
+    const loadReviews = useCallback(async () => {
+        if (!item) return
+        setReviewsLoading(true)
+        try {
+            const res = await reviewApi.list(item.slug)
+            setRealReviews(res.data.reviews)
+            setReviewStats(res.data.stats)
+        } catch {
+            // Non-fatal — the page still works with the seeded demo reviews below.
+        } finally {
+            setReviewsLoading(false)
+        }
+    }, [item])
+
+    useEffect(() => {
+        loadReviews()
+    }, [loadReviews])
+
+    const myReview = user ? realReviews.find((r) => String(r.user) === String(user._id)) : null
+
+    // Real reviews take over once at least one exists; otherwise show the
+    // seeded demo reviews so a fresh destination page doesn't look empty.
+    const usingRealReviews = reviewStats.count > 0
+    const displayedReviews = usingRealReviews ? realReviews : demoReviews
+    const reviewAvg = usingRealReviews ? reviewStats.average : averageRating(demoReviews, item?.rating || 0)
+    const reviewCount = usingRealReviews ? reviewStats.count : demoReviews.length
+
+    const handleSubmitReview = async ({ rating, comment }) => {
+        const res = await reviewApi.create(item.slug, { rating, comment }, token)
+        setRealReviews((prev) => [res.data.review, ...prev])
+        setReviewStats(res.data.stats)
+        setShowReviewForm(false)
+    }
+
+    const handleUpdateReview = async ({ rating, comment }) => {
+        const res = await reviewApi.update(item.slug, myReview._id, { rating, comment }, token)
+        setRealReviews((prev) => prev.map((r) => (r._id === myReview._id ? res.data.review : r)))
+        setReviewStats(res.data.stats)
+        setEditingReview(false)
+    }
+
+    const handleDeleteReview = async () => {
+        if (!window.confirm('Delete your review?')) return
+        setDeletingReview(true)
+        try {
+            const res = await reviewApi.remove(item.slug, myReview._id, token)
+            setRealReviews((prev) => prev.filter((r) => r._id !== myReview._id))
+            setReviewStats(res.data.stats)
+        } catch (err) {
+            alert(err.message || 'Failed to delete review.')
+        } finally {
+            setDeletingReview(false)
+        }
+    }
 
     if (loading) {
         return (
@@ -116,7 +183,7 @@ export default function DestinationPage({ onEnquire }) {
                                 <div className="flex items-center flex-wrap gap-4 mt-3 text-sm text-ink-soft">
                                     <span className="flex items-center gap-1.5">
                                         <Star size={14} className="fill-[#4E3924] stroke-[#4E3924]" />
-                                        <b className="text-[#040809]">{reviewAvg}</b> ({reviews.length} reviews)
+                                        <b className="text-[#040809]">{reviewAvg}</b> ({reviewCount} reviews)
                                     </span>
                                     <span className="flex items-center gap-1.5">
                                         <Clock size={14} /> {item.duration}
@@ -205,7 +272,7 @@ export default function DestinationPage({ onEnquire }) {
 
                         {/* Reviews */}
                         <section className="mt-10">
-                            <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
                                 <h2 className="font-display text-2xl font-semibold">Traveller Reviews</h2>
                                 <span className="flex items-center gap-1.5 text-sm">
                                     <Star size={16} className="fill-[#4E3924] stroke-[#4E3924]" />
@@ -213,26 +280,120 @@ export default function DestinationPage({ onEnquire }) {
                                     <span className="text-ink-soft">/ 5</span>
                                 </span>
                             </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                {reviews.map((r) => (
-                                    <div key={r.id} className="bg-paper border border-line rounded-card p-6 relative">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <div className="w-[38px] h-[38px] rounded-full bg-[#84A095] flex items-center justify-center font-display font-bold text-[#040809] border border-[#84A095]">
-                                                {r.name.charAt(0)}
-                                            </div>
-                                            <div>
-                                                <b className="block text-[13.5px]">{r.name}</b>
-                                                <span className="text-xs text-ink-soft">{r.date}</span>
-                                            </div>
-                                            <span className="ml-auto flex items-center gap-1 text-xs font-semibold">
-                                                <Star size={12} className="fill-[#4E3924] stroke-[#4E3924]" />
-                                                {r.rating}
+
+                            {/* Write / edit / delete your own review */}
+                            <div className="mb-6">
+                                {!user ? (
+                                    <button
+                                        onClick={() => onRequireAuth?.()}
+                                        className="btn btn-ghost"
+                                    >
+                                        Log in to write a review
+                                    </button>
+                                ) : myReview && !editingReview ? (
+                                    <div className="bg-paper border border-line rounded-card p-5">
+                                        <div className="flex items-center justify-between mb-2">
+                                            <span className="text-xs uppercase tracking-wide text-ink-soft font-semibold">
+                                                Your Review
                                             </span>
+                                            <div className="flex items-center gap-3">
+                                                <button
+                                                    onClick={() => setEditingReview(true)}
+                                                    aria-label="Edit your review"
+                                                    className="text-ink-soft hover:text-[#040809] transition-colors"
+                                                >
+                                                    <Pencil size={14} />
+                                                </button>
+                                                <button
+                                                    onClick={handleDeleteReview}
+                                                    disabled={deletingReview}
+                                                    aria-label="Delete your review"
+                                                    className="text-ink-soft hover:text-red-600 transition-colors disabled:opacity-50"
+                                                >
+                                                    {deletingReview ? (
+                                                        <Loader2 size={14} className="animate-spin" />
+                                                    ) : (
+                                                        <Trash2 size={14} />
+                                                    )}
+                                                </button>
+                                            </div>
                                         </div>
-                                        <p className="text-[13.5px] text-ink-soft leading-relaxed italic">{r.quote}</p>
+                                        <div className="flex items-center gap-1 mb-2">
+                                            {[1, 2, 3, 4, 5].map((n) => (
+                                                <Star
+                                                    key={n}
+                                                    size={14}
+                                                    className={
+                                                        n <= myReview.rating
+                                                            ? 'fill-[#4E3924] stroke-[#4E3924]'
+                                                            : 'fill-transparent stroke-ink-soft'
+                                                    }
+                                                />
+                                            ))}
+                                        </div>
+                                        <p className="text-[13.5px] text-ink-soft leading-relaxed">{myReview.comment}</p>
                                     </div>
-                                ))}
+                                ) : editingReview ? (
+                                    <ReviewForm
+                                        initialRating={myReview.rating}
+                                        initialComment={myReview.comment}
+                                        submitLabel="Save Changes"
+                                        onSubmit={handleUpdateReview}
+                                        onCancel={() => setEditingReview(false)}
+                                    />
+                                ) : showReviewForm ? (
+                                    <ReviewForm
+                                        onSubmit={handleSubmitReview}
+                                        onCancel={() => setShowReviewForm(false)}
+                                    />
+                                ) : (
+                                    <button onClick={() => setShowReviewForm(true)} className="btn btn-primary">
+                                        Write a Review
+                                    </button>
+                                )}
                             </div>
+
+                            {reviewsLoading ? (
+                                <div className="flex items-center gap-2 text-ink-soft text-sm py-6">
+                                    <Loader2 size={15} className="animate-spin" /> Loading reviews…
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                    {displayedReviews.map((r) => (
+                                        <div key={r.id || r._id} className="bg-paper border border-line rounded-card p-6 relative">
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <div className="w-[38px] h-[38px] rounded-full bg-[#84A095] flex items-center justify-center font-display font-bold text-[#040809] border border-[#84A095]">
+                                                    {r.name.charAt(0)}
+                                                </div>
+                                                <div className="min-w-0">
+                                                    <div className="flex items-center gap-1.5">
+                                                        <b className="block text-[13.5px] truncate">{r.name}</b>
+                                                        {r.verifiedTraveller && (
+                                                            <span title="Booked with us">
+                                                                <BadgeCheck size={13} className="text-[#26484D] flex-none" />
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <span className="text-xs text-ink-soft">
+                                                        {r.date || new Date(r.createdAt).toLocaleDateString('en-IN', {
+                                                            day: 'numeric',
+                                                            month: 'short',
+                                                            year: 'numeric'
+                                                        })}
+                                                    </span>
+                                                </div>
+                                                <span className="ml-auto flex items-center gap-1 text-xs font-semibold flex-none">
+                                                    <Star size={12} className="fill-[#4E3924] stroke-[#4E3924]" />
+                                                    {r.rating}
+                                                </span>
+                                            </div>
+                                            <p className="text-[13.5px] text-ink-soft leading-relaxed italic">
+                                                {r.quote || r.comment}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </section>
                     </div>
 
