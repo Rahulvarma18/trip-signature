@@ -153,6 +153,7 @@ const createDestinationSchema = Joi.object({
     }),
     highlights: Joi.array().items(Joi.string().trim()).optional(),
     image: Joi.string().optional().allow('', null).trim(),
+    images: Joi.array().items(Joi.string().trim()).optional(),
     isActive: Joi.boolean().optional()
 })
 

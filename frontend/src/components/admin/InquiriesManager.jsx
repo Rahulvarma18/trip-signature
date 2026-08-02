@@ -1,8 +1,8 @@
 // src/components/admin/InquiriesManager.jsx
 // Admin table for viewing enquiry-form submissions and updating their status.
 
-import { useEffect, useState, useCallback } from 'react'
-import { Loader2, Phone, Mail, ChevronDown, ChevronUp } from 'lucide-react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
+import { Loader2, Phone, Mail, ChevronDown, ChevronUp, Search, X } from 'lucide-react'
 import { inquiryApi } from '../../lib/api'
 
 const STATUS_OPTIONS = ['new', 'contacted', 'in-progress', 'converted', 'closed']
@@ -22,6 +22,7 @@ export default function InquiriesManager({ token }) {
     const [statusFilter, setStatusFilter] = useState('')
     const [expandedId, setExpandedId] = useState(null)
     const [updatingId, setUpdatingId] = useState(null)
+    const [query, setQuery] = useState('')
 
     const load = useCallback(async () => {
         setLoading(true)
@@ -60,12 +61,24 @@ export default function InquiriesManager({ token }) {
         }
     }
 
+    const filtered = useMemo(() => {
+        const q = query.trim().toLowerCase()
+        if (!q) return inquiries
+        return inquiries.filter((inq) =>
+            [inq.name, inq.phone, inq.email, inq.destination, inq.user?.email]
+                .filter(Boolean)
+                .some((field) => field.toLowerCase().includes(q))
+        )
+    }, [inquiries, query])
+
     return (
         <div>
             <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
                 <div>
                     <h2 className="font-display text-xl font-semibold">Enquiries</h2>
-                    <p className="text-ink-soft text-sm">{inquiries.length} total</p>
+                    <p className="text-ink-soft text-sm">
+                        {query ? `${filtered.length} of ${inquiries.length}` : `${inquiries.length} total`}
+                    </p>
                 </div>
                 <select
                     value={statusFilter}
@@ -81,6 +94,26 @@ export default function InquiriesManager({ token }) {
                 </select>
             </div>
 
+            <div className="relative mb-5 max-w-sm">
+                <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft" />
+                <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search by name, phone, email, destination…"
+                    className="form-field-input pl-9 pr-9"
+                />
+                {query && (
+                    <button
+                        onClick={() => setQuery('')}
+                        aria-label="Clear search"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-soft hover:text-[#040809]"
+                    >
+                        <X size={14} />
+                    </button>
+                )}
+            </div>
+
             {error && (
                 <div className="mb-4 rounded-md border border-red-200 bg-red-50 px-3.5 py-2.5 text-[13px] text-red-700">
                     {error}
@@ -91,13 +124,13 @@ export default function InquiriesManager({ token }) {
                 <div className="flex items-center gap-2 text-ink-soft text-sm py-10 justify-center">
                     <Loader2 size={16} className="animate-spin" /> Loading enquiries…
                 </div>
-            ) : inquiries.length === 0 ? (
+            ) : filtered.length === 0 ? (
                 <div className="text-center py-14 text-ink-soft text-sm border border-dashed border-line rounded-md">
-                    No enquiries yet.
+                    {query ? `No enquiries match "${query}".` : 'No enquiries yet.'}
                 </div>
             ) : (
                 <div className="space-y-3">
-                    {inquiries.map((inq) => {
+                    {filtered.map((inq) => {
                         const expanded = expandedId === inq._id
                         return (
                             <div key={inq._id} className="border border-line rounded-md overflow-hidden bg-white">

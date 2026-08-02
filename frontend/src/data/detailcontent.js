@@ -33,6 +33,10 @@ function durationDays(duration) {
 
 // ---------- Gallery ----------
 export function getGallery(item) {
+    // Once an admin uploads images, `item.images` holds Cloudinary URLs —
+    // use those. Otherwise fall back to the original local-file convention
+    // so destinations that haven't been migrated yet keep working.
+    if (item.images && item.images.length > 0) return item.images
     return [1, 2, 3, 4, 5].map((n) => `/images/destinations/${item.slug}/${n}.png`)
 }
 

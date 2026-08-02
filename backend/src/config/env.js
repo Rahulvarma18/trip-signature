@@ -31,6 +31,12 @@ module.exports = {
     EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
     FRONTEND_URL: process.env.FRONTEND_URL,
     HASH_ROUNDS: parseInt(process.env.HASH_ROUNDS || '10'),
+    // Optional — only needed for the admin image-upload feature. Not in
+    // requiredEnvVars so the app still boots without it; the upload route
+    // itself throws a clear error if these are missing.
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
     isDevelopment: process.env.NODE_ENV === 'development',
     isProduction: process.env.NODE_ENV === 'production'
 }

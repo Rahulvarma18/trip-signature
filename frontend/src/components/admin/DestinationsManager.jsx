@@ -1,8 +1,8 @@
 // src/components/admin/DestinationsManager.jsx
 // Admin table for viewing, adding, editing, and removing destinations.
 
-import { useEffect, useState, useCallback } from 'react'
-import { Plus, Pencil, Trash2, Star, Loader2 } from 'lucide-react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
+import { Plus, Pencil, Trash2, Star, Loader2, Search, X } from 'lucide-react'
 import { destinationsApi } from '../../lib/api'
 import { invalidateDestinationsCache } from '../../lib/useDestinations'
 import DestinationFormModal from './DestinationFormModal'
@@ -13,6 +13,7 @@ export default function DestinationsManager({ token }) {
     const [error, setError] = useState('')
     const [editing, setEditing] = useState(null) // null = closed, {} = new, {...} = edit
     const [deletingSlug, setDeletingSlug] = useState(null)
+    const [query, setQuery] = useState('')
 
     const load = useCallback(async () => {
         setLoading(true)
@@ -59,16 +60,48 @@ export default function DestinationsManager({ token }) {
         }
     }
 
+    const filtered = useMemo(() => {
+        const q = query.trim().toLowerCase()
+        if (!q) return destinations
+        return destinations.filter((d) =>
+            [d.name, d.category, d.categoryLabel, d.price, d.duration]
+                .filter(Boolean)
+                .some((field) => field.toLowerCase().includes(q))
+        )
+    }, [destinations, query])
+
     return (
         <div>
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
                 <div>
                     <h2 className="font-display text-xl font-semibold">Destinations</h2>
-                    <p className="text-ink-soft text-sm">{destinations.length} total</p>
+                    <p className="text-ink-soft text-sm">
+                        {query ? `${filtered.length} of ${destinations.length}` : `${destinations.length} total`}
+                    </p>
                 </div>
                 <button onClick={() => setEditing({})} className="btn btn-primary flex items-center gap-2">
                     <Plus size={15} /> Add Destination
                 </button>
+            </div>
+
+            <div className="relative mb-5 max-w-sm">
+                <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft" />
+                <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search by name, category, price…"
+                    className="form-field-input pl-9 pr-9"
+                />
+                {query && (
+                    <button
+                        onClick={() => setQuery('')}
+                        aria-label="Clear search"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-soft hover:text-[#040809]"
+                    >
+                        <X size={14} />
+                    </button>
+                )}
             </div>
 
             {error && (
@@ -81,9 +114,9 @@ export default function DestinationsManager({ token }) {
                 <div className="flex items-center gap-2 text-ink-soft text-sm py-10 justify-center">
                     <Loader2 size={16} className="animate-spin" /> Loading destinations…
                 </div>
-            ) : destinations.length === 0 ? (
+            ) : filtered.length === 0 ? (
                 <div className="text-center py-14 text-ink-soft text-sm border border-dashed border-line rounded-md">
-                    No destinations yet. Add your first one.
+                    {query ? `No destinations match "${query}".` : 'No destinations yet. Add your first one.'}
                 </div>
             ) : (
                 <div className="overflow-x-auto border border-line rounded-md">
@@ -99,7 +132,7 @@ export default function DestinationsManager({ token }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {destinations.map((d) => (
+                            {filtered.map((d) => (
                                 <tr key={d.slug} className="border-t border-line hover:bg-ivory/60 transition-colors">
                                     <td className="px-4 py-3 font-medium text-[#040809]">{d.name}</td>
                                     <td className="px-4 py-3 text-ink-soft">{d.categoryLabel || d.category}</td>
@@ -141,6 +174,7 @@ export default function DestinationsManager({ token }) {
             {editing !== null && (
                 <DestinationFormModal
                     destination={editing.slug ? editing : null}
+                    token={token}
                     onClose={() => setEditing(null)}
                     onSave={handleSave}
                 />

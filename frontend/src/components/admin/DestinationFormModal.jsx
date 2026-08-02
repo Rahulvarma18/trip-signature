@@ -1,12 +1,26 @@
 // src/components/admin/DestinationFormModal.jsx
 // Add/edit form for a single destination, used by DestinationsManager.
+// Images are uploaded straight to Cloudinary via the backend upload route.
 
-import { useState } from 'react'
-import { X, Loader2 } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { X, Loader2, Upload, Trash2, ImageOff } from 'lucide-react'
 import { CATEGORY_LIST } from '../../data/destinations'
-import { ApiError } from '../../lib/api'
+import { ApiError, uploadApi } from '../../lib/api'
+
+function slugifyPreview(name) {
+    return String(name)
+        .toLowerCase()
+        .replace(/&/g, 'and')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '') || 'general'
+}
 
 function toFormState(destination) {
+    const images = destination?.images?.length
+        ? destination.images
+        : destination?.image
+            ? [destination.image]
+            : []
     return {
         name: destination?.name || '',
         category: destination?.category || CATEGORY_LIST[0]?.key || '',
@@ -15,16 +29,19 @@ function toFormState(destination) {
         rating: destination?.rating != null ? String(destination.rating) : '4.5',
         description: destination?.description || '',
         highlights: destination?.highlights?.join(', ') || '',
-        image: destination?.image || ''
+        images
     }
 }
 
-export default function DestinationFormModal({ destination, onClose, onSave }) {
+export default function DestinationFormModal({ destination, token, onClose, onSave }) {
     const isEdit = !!destination
     const [form, setForm] = useState(() => toFormState(destination))
     const [errors, setErrors] = useState({})
     const [formError, setFormError] = useState('')
     const [submitting, setSubmitting] = useState(false)
+    const [uploading, setUploading] = useState(false)
+    const [uploadProgress, setUploadProgress] = useState('')
+    const fileInputRef = useRef(null)
 
     const handleChange = (field) => (e) => {
         setForm((f) => ({ ...f, [field]: e.target.value }))
@@ -48,6 +65,33 @@ export default function DestinationFormModal({ destination, onClose, onSave }) {
         return Object.keys(next).length === 0
     }
 
+    const handleFilesSelected = async (e) => {
+        const files = Array.from(e.target.files || [])
+        e.target.value = '' // allow re-selecting the same file later
+        if (files.length === 0) return
+
+        setFormError('')
+        setUploading(true)
+        const slug = destination?.slug || slugifyPreview(form.name)
+
+        for (let i = 0; i < files.length; i++) {
+            setUploadProgress(`Uploading image ${i + 1} of ${files.length}…`)
+            try {
+                const res = await uploadApi.image(files[i], { slug, token })
+                setForm((f) => ({ ...f, images: [...f.images, res.data.url] }))
+            } catch (err) {
+                setFormError(err.message || `Failed to upload "${files[i].name}".`)
+            }
+        }
+
+        setUploadProgress('')
+        setUploading(false)
+    }
+
+    const removeImage = (index) => {
+        setForm((f) => ({ ...f, images: f.images.filter((_, i) => i !== index) }))
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         setFormError('')
@@ -67,7 +111,8 @@ export default function DestinationFormModal({ destination, onClose, onSave }) {
                 .split(',')
                 .map((h) => h.trim())
                 .filter(Boolean),
-            image: form.image.trim() || undefined
+            images: form.images,
+            image: form.images[0] || undefined
         }
 
         setSubmitting(true)
@@ -87,11 +132,13 @@ export default function DestinationFormModal({ destination, onClose, onSave }) {
         }
     }
 
+    const busy = submitting || uploading
+
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-8">
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
-            <div className="relative bg-white rounded-md shadow-deep w-full max-w-lg max-h-[90vh] overflow-y-auto p-7 sm:p-8">
+            <div className="relative bg-white rounded-md shadow-deep w-full max-w-lg max-h-[90vh] overflow-y-auto p-7 sm:p-8" data-lenis-prevent>
                 <button
                     onClick={onClose}
                     aria-label="Close"
@@ -118,7 +165,7 @@ export default function DestinationFormModal({ destination, onClose, onSave }) {
                             onChange={handleChange('name')}
                             className="form-field-input"
                             placeholder="e.g. Kedarnath"
-                            disabled={submitting}
+                            disabled={busy}
                         />
                     </FormField>
 
@@ -127,7 +174,7 @@ export default function DestinationFormModal({ destination, onClose, onSave }) {
                             value={form.category}
                             onChange={handleChange('category')}
                             className="form-field-input"
-                            disabled={submitting}
+                            disabled={busy}
                         >
                             {CATEGORY_LIST.map((cat) => (
                                 <option key={cat.key} value={cat.key}>
@@ -145,7 +192,7 @@ export default function DestinationFormModal({ destination, onClose, onSave }) {
                                 onChange={handleChange('price')}
                                 className="form-field-input"
                                 placeholder="₹15,999"
-                                disabled={submitting}
+                                disabled={busy}
                             />
                         </FormField>
                         <FormField label="Duration" error={errors.duration}>
@@ -155,7 +202,7 @@ export default function DestinationFormModal({ destination, onClose, onSave }) {
                                 onChange={handleChange('duration')}
                                 className="form-field-input"
                                 placeholder="4 Days"
-                                disabled={submitting}
+                                disabled={busy}
                             />
                         </FormField>
                     </div>
@@ -169,7 +216,7 @@ export default function DestinationFormModal({ destination, onClose, onSave }) {
                             value={form.rating}
                             onChange={handleChange('rating')}
                             className="form-field-input"
-                            disabled={submitting}
+                            disabled={busy}
                         />
                     </FormField>
 
@@ -179,7 +226,7 @@ export default function DestinationFormModal({ destination, onClose, onSave }) {
                             onChange={handleChange('description')}
                             className="form-field-input min-h-[90px] resize-y"
                             placeholder="A short, appealing description of the trip…"
-                            disabled={submitting}
+                            disabled={busy}
                         />
                     </FormField>
 
@@ -190,19 +237,57 @@ export default function DestinationFormModal({ destination, onClose, onSave }) {
                             onChange={handleChange('highlights')}
                             className="form-field-input"
                             placeholder="Jyotirlinga darshan, Helicopter transfer, Guided trek support"
-                            disabled={submitting}
+                            disabled={busy}
                         />
                     </FormField>
 
-                    <FormField label="Image path (optional)" error={errors.image}>
+                    <FormField label="Images" error={errors.images}>
+                        {form.images.length > 0 ? (
+                            <div className="grid grid-cols-4 gap-2 mb-3">
+                                {form.images.map((url, i) => (
+                                    <div key={url + i} className="relative aspect-square rounded-md overflow-hidden border border-line group">
+                                        <img src={url} alt="" className="w-full h-full object-cover" />
+                                        {i === 0 && (
+                                            <span className="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[9px] text-center py-0.5">
+                                                Cover
+                                            </span>
+                                        )}
+                                        <button
+                                            type="button"
+                                            onClick={() => removeImage(i)}
+                                            disabled={busy}
+                                            aria-label="Remove image"
+                                            className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-100"
+                                        >
+                                            <Trash2 size={11} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="flex items-center gap-2 text-ink-soft text-xs mb-3 border border-dashed border-line rounded-md px-3 py-3">
+                                <ImageOff size={14} /> No images yet — the site will use a placeholder until you add some.
+                            </div>
+                        )}
+
                         <input
-                            type="text"
-                            value={form.image}
-                            onChange={handleChange('image')}
-                            className="form-field-input"
-                            placeholder="/images/destinations/kedarnath/1.png"
-                            disabled={submitting}
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={handleFilesSelected}
+                            className="hidden"
+                            disabled={busy}
                         />
+                        <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            disabled={busy}
+                            className="btn btn-ghost w-full flex items-center justify-center gap-2 py-2.5 text-sm"
+                        >
+                            {uploading ? <Loader2 size={15} className="animate-spin" /> : <Upload size={15} />}
+                            {uploading ? uploadProgress || 'Uploading…' : 'Upload Images'}
+                        </button>
                     </FormField>
 
                     <div className="flex gap-3 pt-2">
@@ -210,14 +295,14 @@ export default function DestinationFormModal({ destination, onClose, onSave }) {
                             type="button"
                             onClick={onClose}
                             className="btn btn-ghost flex-1"
-                            disabled={submitting}
+                            disabled={busy}
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
                             className="btn btn-primary flex-1 flex items-center justify-center gap-2"
-                            disabled={submitting}
+                            disabled={busy}
                         >
                             {submitting && <Loader2 size={16} className="animate-spin" />}
                             {submitting ? 'Saving…' : isEdit ? 'Save Changes' : 'Add Destination'}

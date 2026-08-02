@@ -10,6 +10,7 @@ const { errorHandler } = require('./middleware/errorHandler')
 const authRoutes = require('./routes/auth')
 const inquiryRoutes = require('./routes/inquiry')
 const destinationRoutes = require('./routes/destination')
+const uploadRoutes = require('./routes/upload')
 
 // Create Express app
 const app = express()
@@ -63,6 +64,7 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes)
 app.use('/api/inquiry', inquiryRoutes)
 app.use('/api/destinations', destinationRoutes)
+app.use('/api/uploads', uploadRoutes)
 
 // ==========================================
 // 404 & ERROR HANDLING

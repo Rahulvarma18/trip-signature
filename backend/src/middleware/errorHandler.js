@@ -64,6 +64,18 @@ const errorHandler = (err, req, res, next) => {
         })
     }
 
+    // Multer upload errors (file too large, wrong field, etc.)
+    if (err.name === 'MulterError') {
+        const message =
+            err.code === 'LIMIT_FILE_SIZE'
+                ? 'Image is too large (max 8MB).'
+                : err.message
+        return res.status(400).json({
+            success: false,
+            message
+        })
+    }
+
     // Cast error (invalid MongoDB ID)
     if (err.name === 'CastError') {
         return res.status(400).json({

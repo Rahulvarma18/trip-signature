@@ -60,8 +60,17 @@ const destinationSchema = new mongoose.Schema(
             default: []
         },
         image: {
+            // Cover image — shown on cards. Cloudinary URL once migrated;
+            // may be empty for older items that still use the local
+            // /images/destinations/<slug>/1.png convention as a fallback.
             type: String,
             trim: true
+        },
+        images: {
+            // Full gallery — Cloudinary URLs, admin-managed. If empty, the
+            // frontend falls back to the local file-convention gallery.
+            type: [String],
+            default: []
         },
         isActive: {
             type: Boolean,

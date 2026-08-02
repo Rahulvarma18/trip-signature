@@ -99,4 +99,41 @@ export const inquiryApi = {
         request(`/inquiry/${inquiryId}/note`, { method: 'POST', body: { text }, token })
 }
 
+export const uploadApi = {
+    // multipart/form-data upload — deliberately not using the shared
+    // `request()` helper since that always sets Content-Type: application/json.
+    image: async (file, { slug, token } = {}) => {
+        const formData = new FormData()
+        formData.append('image', file)
+        if (slug) formData.append('slug', slug)
+
+        const headers = {}
+        if (token) headers.Authorization = `Bearer ${token}`
+
+        let res
+        try {
+            res = await fetch(`${API_BASE_URL}/uploads/image`, {
+                method: 'POST',
+                headers,
+                body: formData
+            })
+        } catch {
+            throw new ApiError('Could not reach the server. Please check your connection and try again.')
+        }
+
+        let data = null
+        try {
+            data = await res.json()
+        } catch {
+            // ignore — handled by the !res.ok check below
+        }
+
+        if (!res.ok) {
+            throw new ApiError(data?.message || `Upload failed (${res.status})`, { status: res.status })
+        }
+
+        return data
+    }
+}
+
 export { ApiError }
