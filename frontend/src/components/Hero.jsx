@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Star } from 'lucide-react'
 import { Link } from "react-router-dom";
 
 const slides = [
@@ -43,8 +43,12 @@ const slides = [
 export default function Hero() {
   const [current, setCurrent] = useState(0)
 
-  const prev = () => setCurrent((i) => (i === 0 ? slides.length - 1 : i - 1))
-  const next = () => setCurrent((i) => (i === slides.length - 1 ? 0 : i + 1))
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((i) => (i === slides.length - 1 ? 0 : i + 1))
+    }, 2000)
+    return () => clearInterval(timer)
+  }, [])
 
   const slide = slides[current]
 
@@ -57,24 +61,6 @@ export default function Hero() {
         style={{ backgroundImage: `url('${slide.image}')` }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/65" />
-
-      {/* Left arrow */}
-      <button
-        onClick={prev}
-        aria-label="Previous slide"
-        className="absolute left-4 md:left-8 z-20 w-11 h-11 rounded-full border border-white/50 bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-110 active:scale-95"
-      >
-        <ChevronLeft size={20} />
-      </button>
-
-      {/* Right arrow */}
-      <button
-        onClick={next}
-        aria-label="Next slide"
-        className="absolute right-4 md:left-auto md:right-8 z-20 w-11 h-11 rounded-full border border-white/50 bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-110 active:scale-95"
-      >
-        <ChevronRight size={20} />
-      </button>
 
       {/* Content */}
       <div className="section-container relative z-10 text-center w-full flex flex-col items-center">
