@@ -38,8 +38,8 @@ export default function DestinationPage({ onEnquire, user, token, onRequireAuth 
 
     const gallery = useMemo(() => (item ? getGallery(item) : []), [item])
     const itinerary = useMemo(() => (item ? getItinerary(item) : []), [item])
-    const inclusions = useMemo(() => (category ? getInclusions(category.key) : []), [category])
-    const exclusions = useMemo(() => (category ? getExclusions(category.key) : []), [category])
+    const inclusions = useMemo(() => (category ? getInclusions(category.key, item?.slug) : []), [category, item])
+    const exclusions = useMemo(() => (category ? getExclusions(category.key, item?.slug) : []), [category, item])
     const demoReviews = useMemo(() => (item ? getReviews(item) : []), [item])
 
     const [activeImage, setActiveImage] = useState(0)

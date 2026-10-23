@@ -314,12 +314,60 @@ const CATEGORY_EXCLUSIONS_OVERRIDE = {
     ]
 }
 
-export function getInclusions(categoryKey) {
+// Per-destination lists, keyed by slug. Take priority over the category lists.
+const SPITI_EXCLUSIONS = [
+    'Travel to and from the trip start point',
+    'Lunches and personal snacks',
+    '5% GST',
+    'Anything not listed under inclusions'
+]
+
+const DESTINATION_INCLUSIONS = {
+    'winter-spiti': [
+        '8 nights stay in heated hotels and homestays',
+        '4\u00d74 vehicles with snow chains and an experienced winter driver',
+        'All breakfasts and dinners',
+        'Local snow-leopard spotters and scope hire',
+        'Oxygen, first-aid and hot-water bottles',
+        'All permits'
+    ],
+    'spiti-short-loop': [
+        '5 nights stay (Manali hotel, Kaza homestay, Chandratal camp)',
+        'Full-circuit transport in a Tempo Traveller or Xylo',
+        'All breakfasts and dinners',
+        'Inner-line permits and monastery entries',
+        'Oxygen support and first-aid',
+        'Trip captain throughout'
+    ],
+    'spiti-full-circuit': [
+        '7 nights stay (hotels, homestays and the Chandratal camp)',
+        'All transfers in a tempo traveller or SUV from Shimla',
+        '14 meals \u2014 every breakfast and dinner',
+        'Trip captain plus local guides',
+        'Oxygen cylinder and first-aid on board',
+        'All permits and tolls'
+    ]
+}
+
+const DESTINATION_EXCLUSIONS = {
+    'winter-spiti': SPITI_EXCLUSIONS,
+    'spiti-short-loop': SPITI_EXCLUSIONS,
+    'spiti-full-circuit': [
+        'Travel to Shimla and from Manali',
+        'Lunches and personal snacks',
+        '5% GST',
+        'Anything not listed under inclusions'
+    ]
+}
+
+export function getInclusions(categoryKey, slug) {
+    if (slug && DESTINATION_INCLUSIONS[slug]) return [...DESTINATION_INCLUSIONS[slug]]
     if (CATEGORY_INCLUSIONS_OVERRIDE[categoryKey]) return [...CATEGORY_INCLUSIONS_OVERRIDE[categoryKey]]
     return [...(CATEGORY_INCLUSIONS[categoryKey] || []), ...BASE_INCLUSIONS]
 }
 
-export function getExclusions(categoryKey) {
+export function getExclusions(categoryKey, slug) {
+    if (slug && DESTINATION_EXCLUSIONS[slug]) return [...DESTINATION_EXCLUSIONS[slug]]
     if (CATEGORY_EXCLUSIONS_OVERRIDE[categoryKey]) return [...CATEGORY_EXCLUSIONS_OVERRIDE[categoryKey]]
     return [...(CATEGORY_EXCLUSIONS[categoryKey] || []), ...BASE_EXCLUSIONS]
 }
