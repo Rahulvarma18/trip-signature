@@ -39,6 +39,7 @@ export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth
     { label: 'Spiritual', to: '/category/pilgrimage' },
     { label: 'Honeymoon', to: '/category/honeymoon' },
     { label: 'Trek', to: '/category/trek' },
+    { label: 'About', to: '/about' },
   ]
 
   return (

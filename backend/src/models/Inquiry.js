@@ -59,6 +59,13 @@ const inquirySchema = new mongoose.Schema(
             maxlength: [1000, 'Special requests cannot exceed 1000 characters'],
             default: null
         },
+        // Free-text "Tell us about the trip in your head" from the enquiry form
+        tripDescription: {
+            type: String,
+            trim: true,
+            maxlength: [1000, 'Trip description cannot exceed 1000 characters'],
+            default: null
+        },
         status: {
             type: String,
             enum: ['new', 'contacted', 'in-progress', 'converted', 'closed'],

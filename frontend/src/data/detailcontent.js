@@ -75,7 +75,27 @@ function pickAvoiding(rng, pool, exclude) {
     return options.length ? pick(rng, options) : pick(rng, pool)
 }
 
+// Hand-written itineraries, keyed by destination slug. When a slug is listed
+// here it is used as-is instead of the auto-generated plan below.
+// `text` is optional — days without it show just the title.
+const CUSTOM_ITINERARIES = {
+    manali: [
+        { day: 1, title: 'Arrive Manali' },
+        { day: 2, title: 'Manali \u2192 Kaza via Kunzum La' },
+        { day: 3, title: 'Kaza \u00b7 Key \u00b7 Kibber \u00b7 Chicham' },
+        { day: 4, title: 'Hikkim \u00b7 Komic \u00b7 Langza \u00b7 Pin valley' },
+        { day: 5, title: 'Kaza \u2192 Chandratal' },
+        {
+            day: 6,
+            title: 'Chandratal \u2192 Manali',
+            text: 'Sunrise at the lake and the drive back. Drop in Manali by evening.'
+        }
+    ]
+}
+
 export function getItinerary(item) {
+    if (item.slug && CUSTOM_ITINERARIES[item.slug]) return CUSTOM_ITINERARIES[item.slug]
+
     const days = durationDays(item.duration)
     const rng = mulberry32(seedFromString(item.name + 'itin'))
     const highlights = item.highlights && item.highlights.length ? item.highlights : [item.name]
@@ -160,7 +180,6 @@ const BASE_EXCLUSIONS = [
 ]
 
 const CATEGORY_INCLUSIONS = {
-    pilgrimage: ['Assistance with darshan / temple entry queues', 'Puja arrangements on request'],
     trek: ['Trekking permits and forest fees', 'Camping equipment and experienced trek guide', 'All meals during the trek'],
     safari: ['Jeep safari fees and park entry permits', 'Naturalist / wildlife guide'],
     beach: ['Water sports session as per package', 'Airport-hotel transfers'],
@@ -172,15 +191,36 @@ const CATEGORY_INCLUSIONS = {
 
 const CATEGORY_EXCLUSIONS = {
     trek: ['Personal trekking gear (unless rented separately)', 'Medical evacuation charges, if required'],
-    safari: ['Camera fees inside the national park'],
-    pilgrimage: ['VIP / special darshan tickets, if opted']
+    safari: ['Camera fees inside the national park']
+}
+
+// Categories with their own complete lists (replaces the base + category lists above)
+const CATEGORY_INCLUSIONS_OVERRIDE = {
+    pilgrimage: [
+        'Assistance with darshan / temple entry queues',
+        'Puja arrangements on request',
+        'Accommodation as per itinerary',
+        'Meals (Dinner & Breakfast)',
+        'Transportation',
+        'All local sightseeing'
+    ]
+}
+
+const CATEGORY_EXCLUSIONS_OVERRIDE = {
+    pilgrimage: [
+        '5% GST',
+        'Any personal expense',
+        'Anything that is not mentioned in itinerary'
+    ]
 }
 
 export function getInclusions(categoryKey) {
+    if (CATEGORY_INCLUSIONS_OVERRIDE[categoryKey]) return [...CATEGORY_INCLUSIONS_OVERRIDE[categoryKey]]
     return [...(CATEGORY_INCLUSIONS[categoryKey] || []), ...BASE_INCLUSIONS]
 }
 
 export function getExclusions(categoryKey) {
+    if (CATEGORY_EXCLUSIONS_OVERRIDE[categoryKey]) return [...CATEGORY_EXCLUSIONS_OVERRIDE[categoryKey]]
     return [...(CATEGORY_EXCLUSIONS[categoryKey] || []), ...BASE_EXCLUSIONS]
 }
 

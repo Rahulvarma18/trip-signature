@@ -65,7 +65,7 @@ export default function InquiriesManager({ token }) {
         const q = query.trim().toLowerCase()
         if (!q) return inquiries
         return inquiries.filter((inq) =>
-            [inq.name, inq.phone, inq.email, inq.destination, inq.user?.email]
+            [inq.name, inq.phone, inq.email, inq.destination, inq.tripDescription, inq.user?.email]
                 .filter(Boolean)
                 .some((field) => field.toLowerCase().includes(q))
         )
@@ -180,6 +180,17 @@ export default function InquiriesManager({ token }) {
                                             {inq.budget && <DetailRow label="Budget" value={inq.budget} />}
                                             {inq.user && <DetailRow label="Account" value={`Registered user (${inq.user.email})`} />}
                                         </div>
+
+                                        {inq.tripDescription && (
+                                            <div className="mb-4 text-sm">
+                                                <p className="text-ink-soft text-[11px] font-semibold uppercase tracking-wide mb-1">
+                                                    Trip in their head
+                                                </p>
+                                                <p className="whitespace-pre-wrap text-[#040809] bg-white border border-line rounded-md px-3.5 py-2.5">
+                                                    {inq.tripDescription}
+                                                </p>
+                                            </div>
+                                        )}
 
                                         <div className="flex items-center gap-2">
                                             <label className="text-[11px] font-semibold uppercase tracking-wide text-ink-soft">

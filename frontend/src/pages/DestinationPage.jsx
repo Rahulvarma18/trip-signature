@@ -203,8 +203,10 @@ export default function DestinationPage({ onEnquire, user, token, onRequireAuth 
                                         </span>
                                     </div>
                                 )}
-                                <div className="font-display text-3xl font-bold text-[#040809]">{item.price}</div>
-                                <span className="text-xs text-ink-soft">per person</span>
+                                <div className="font-display text-3xl font-bold text-[#040809]">
+                                    {item.price}
+                                    <span className="ml-1 font-sans text-xs font-normal text-ink-soft">/person</span>
+                                </div>
                             </div>
                         </div>
 
@@ -245,7 +247,9 @@ export default function DestinationPage({ onEnquire, user, token, onRequireAuth 
                                             <h3 className="font-semibold text-[15px] mb-1">
                                                 Day {day.day}: {day.title}
                                             </h3>
-                                            <p className="text-[13.5px] text-ink-soft leading-relaxed">{day.text}</p>
+                                            {day.text && (
+                                                <p className="text-[13.5px] text-ink-soft leading-relaxed">{day.text}</p>
+                                            )}
                                         </div>
                                     </div>
                                 ))}
@@ -417,8 +421,11 @@ export default function DestinationPage({ onEnquire, user, token, onRequireAuth 
                                     </span>
                                 </div>
                             )}
-                            <div className="font-display text-3xl font-bold text-[#040809] mb-1">{item.price}</div>
-                            <span className="text-xs text-ink-soft">per person, taxes included</span>
+                            <div className="font-display text-3xl font-bold text-[#040809] mb-1">
+                                {item.price}
+                                <span className="ml-1 font-sans text-xs font-normal text-ink-soft">/person</span>
+                            </div>
+                            <span className="text-xs text-ink-soft">taxes included</span>
 
                             <div className="mt-5 space-y-2.5 text-[13.5px] text-ink-soft">
                                 <div className="flex items-center gap-2.5">

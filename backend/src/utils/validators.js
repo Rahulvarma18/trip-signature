@@ -125,6 +125,14 @@ const createInquirySchema = Joi.object({
         .max(1000)
         .messages({
             'string.max': 'Special requests cannot exceed 1000 characters'
+        }),
+    tripDescription: Joi.string()
+        .trim()
+        .optional()
+        .allow(null, '')
+        .max(1000)
+        .messages({
+            'string.max': 'Trip description cannot exceed 1000 characters'
         })
 })
 

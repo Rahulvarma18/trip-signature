@@ -339,6 +339,14 @@ export const CATEGORIES = {
         description:
           'West Bengal\u2019s highest point, with sunrise views of four of the world\u2019s five highest peaks in a single frame.',
         highlights: ['Four 8000m+ peaks in view', 'West Bengal\u2019s highest point', 'Singalila ridge trail']
+      },
+      {
+        name: 'Manali',
+        price: '\u20b99,999',
+        duration: '6 Days',
+        description:
+          'A six-day Himalayan circuit from Manali over Kunzum La into Spiti Valley \u2014 Kaza, Key, Kibber, Hikkim, Langza and Pin Valley \u2014 returning via Chandratal Lake.',
+        highlights: ['Kunzum La crossing', 'Key, Kibber & Chicham villages', 'Sunrise at Chandratal Lake']
       }
     ])
   },

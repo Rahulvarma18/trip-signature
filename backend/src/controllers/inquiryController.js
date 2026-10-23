@@ -35,6 +35,7 @@ const createInquiry = asyncHandler(async (req, res) => {
         travelDate: validation.data.travelDate || null,
         budget: validation.data.budget || 'Not decided',
         specialRequests: validation.data.specialRequests || null,
+        tripDescription: validation.data.tripDescription || null,
         source: 'website',
         status: 'new',
         isRead: false

@@ -6,6 +6,7 @@ import {
   Users,
   Calendar,
   Mail,
+  MessageSquareText,
   ShieldCheck,
   ChevronDown,
   CheckCircle2
@@ -20,8 +21,11 @@ const initialForm = {
   destination: '',
   travellers: '2',
   date: '',
-  email: ''
+  email: '',
+  tripDescription: ''
 }
+
+const TRIP_DESCRIPTION_MAX = 1000
 
 function makeCaptcha() {
   const a = Math.floor(Math.random() * 10) + 2
@@ -86,7 +90,8 @@ export default function InquiryForm({ presetDestination }) {
       destination: form.destination || 'Not specified',
       travellers: form.travellers,
       travelDate: form.date || null,
-      email: form.email.trim() || null
+      email: form.email.trim() || null,
+      tripDescription: form.tripDescription.trim() || null
     }
 
     try {
@@ -222,6 +227,23 @@ export default function InquiryForm({ presetDestination }) {
               className="form-input text-black placeholder:text-gray-600"
             />
           </IconInput>
+        </Field>
+
+        <Field label="Tell us about the trip in your head" optional error={errors.tripDescription}>
+          <div className="flex items-start gap-2.5 border border-line rounded-md px-3.5 bg-[#84A095]/50 focus-within:border-[#040809] focus-within:ring-2 focus-within:ring-[#84A095] transition-all">
+            <MessageSquareText size={17} className="stroke-ink-soft flex-none mt-3.5" />
+            <textarea
+              rows={4}
+              maxLength={TRIP_DESCRIPTION_MAX}
+              placeholder="e.g. 5 friends, long weekend in November, mountains, budget-ish..."
+              value={form.tripDescription}
+              onChange={handleChange('tripDescription')}
+              className="form-input text-black placeholder:text-gray-600 resize-none"
+            />
+          </div>
+          <p className="text-ink-soft text-[11px] mt-1 text-right">
+            {form.tripDescription.length}/{TRIP_DESCRIPTION_MAX}
+          </p>
         </Field>
 
         <div className="bg-ivory border border-line rounded-md px-3 sm:px-4.5 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3.5 mb-1">
