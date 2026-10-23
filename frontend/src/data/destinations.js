@@ -347,6 +347,30 @@ export const CATEGORIES = {
         description:
           'A six-day Himalayan circuit from Manali over Kunzum La into Spiti Valley \u2014 Kaza, Key, Kibber, Hikkim, Langza and Pin Valley \u2014 returning via Chandratal Lake.',
         highlights: ['Kunzum La crossing', 'Key, Kibber & Chicham villages', 'Sunrise at Chandratal Lake']
+      },
+      {
+        name: 'Spiti Full Circuit',
+        price: '\u20b923,999',
+        duration: '8 Days',
+        description:
+          'The complete Himalayan loop from Shimla through Sangla, Chitkul, Kalpa, Nako, Tabo and Dhankar to Kaza, with a Chandratal sunrise before the drive down to Manali.',
+        highlights: ['Shimla to Manali full circuit', 'Chitkul, Nako, Tabo & Dhankar', 'Chandratal Lake sunrise']
+      },
+      {
+        name: 'Spiti Short Loop',
+        price: '\u20b919,499',
+        duration: '6 Days',
+        description:
+          'A compact Spiti loop from Manali over Kunzum La to Kaza \u2014 Key, Kibber, Hikkim, Komic, Langza and Pin Valley \u2014 and back via Chandratal Lake.',
+        highlights: ['Manali to Kaza via Kunzum La', 'Key, Kibber, Langza & Pin Valley', 'Chandratal Lake sunrise']
+      },
+      {
+        name: 'Winter Spiti',
+        price: '\u20b937,499',
+        duration: '9 Days',
+        description:
+          'A winter journey from Shimla through Sarahan, Chitkul, Sangla, Nako and Tabo to Kaza, with a dedicated snow leopard day at Kibber, returning via Kalpa.',
+        highlights: ['Snow leopard day at Kibber', 'Bhimakali temple evening at Sarahan', 'Winter Spiti villages']
       }
     ])
   },

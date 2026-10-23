@@ -90,6 +90,47 @@ const CUSTOM_ITINERARIES = {
             title: 'Chandratal \u2192 Manali',
             text: 'Sunrise at the lake and the drive back. Drop in Manali by evening.'
         }
+    ],
+    'spiti-full-circuit': [
+        {
+            day: 1,
+            title: 'Shimla \u2192 Sangla',
+            text: "Meet the crew in Shimla and roll along through Sangla's wooden lanes."
+        },
+        { day: 2, title: 'Sangla \u2192 Chitkul \u2192 Kalpa' },
+        { day: 3, title: 'Kalpa \u2192 Nako \u2192 Tabo' },
+        { day: 4, title: 'Tabo \u2192 Dhankar \u2192 Kaza' },
+        { day: 5, title: 'Kaza \u2014 the villages day' },
+        { day: 6, title: 'Kaza \u2192 Chandratal' },
+        { day: 7, title: 'Chandratal \u2192 Manali' },
+        { day: 8, title: 'Manali departure' }
+    ],
+    'spiti-short-loop': [
+        { day: 1, title: 'Arrive Manali' },
+        { day: 2, title: 'Manali \u2192 Kaza via Kunzum La' },
+        { day: 3, title: 'Kaza \u00b7 Key \u00b7 Kibber \u00b7 Chicham' },
+        { day: 4, title: 'Hikkim \u00b7 Komic \u00b7 Langza \u00b7 Pin valley' },
+        { day: 5, title: 'Kaza \u2192 Chandratal' },
+        {
+            day: 6,
+            title: 'Chandratal \u2192 Manali',
+            text: 'Sunrise at the lake and the drive back. Drop in Manali by evening.'
+        }
+    ],
+    'winter-spiti': [
+        {
+            day: 1,
+            title: 'Shimla \u2192 Sarahan',
+            text: 'Meet, gear check and a Bhimakali temple evening at Sarahan.'
+        },
+        { day: 2, title: 'Sarahan \u2192 Chitkul \u2192 Sangla' },
+        { day: 3, title: 'Sangla \u2192 Nako' },
+        { day: 4, title: 'Nako \u2192 Tabo' },
+        { day: 5, title: 'Tabo \u2192 Kaza' },
+        { day: 6, title: 'Kibber \u2014 snow leopard day' },
+        { day: 7, title: 'Langza \u00b7 Komic \u00b7 Hikkim' },
+        { day: 8, title: 'Kaza \u2192 Kalpa' },
+        { day: 9, title: 'Kalpa \u2192 Shimla' }
     ]
 }
 
