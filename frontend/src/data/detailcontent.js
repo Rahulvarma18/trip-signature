@@ -79,6 +79,65 @@ function pickAvoiding(rng, pool, exclude) {
 // here it is used as-is instead of the auto-generated plan below.
 // `text` is optional — days without it show just the title.
 const CUSTOM_ITINERARIES = {
+    'kedarnath-and-badrinath': [
+        {
+            day: 0,
+            title: 'Late night pickup from Delhi',
+            text: 'Start journey to Kedarnath.'
+        },
+        {
+            day: 1,
+            title: 'Pickup from Haridwar & Rishikesh',
+            text: 'Convenient pickup from Haridwar & Rishikesh. Ganga Snan & Ganga Aarti at Haridwar. Later, transfer to the hotel.'
+        },
+        {
+            day: 2,
+            title: 'Trek to Shri Kedarnath',
+            text: 'Attend the divine Evening Aarti at Kedarnath Dham. Night stay at Kedarnath.'
+        },
+        {
+            day: 3,
+            title: 'Morning Darshan & Aarti at Kedarnath Dham',
+            text: 'Trek back to Gaurikund. Transfer to the hotel for an overnight stay.'
+        },
+        {
+            day: 4,
+            title: 'Check out & transfer to Badrinath',
+            text: 'Check out from the hotel after breakfast. Transfer to Badrinath and check in at the hotel upon arrival.'
+        },
+        {
+            day: 5,
+            title: 'Badrinath Temple & Mana Village',
+            text: 'Visit Badrinath Temple and Mana Village before departing for Delhi. End of your memorable journey with TRIP SIGNATURE.'
+        }
+    ],
+    kedarnath: [
+        {
+            day: 0,
+            title: 'Late night pickup from Delhi',
+            text: 'Start journey to Kedarnath.'
+        },
+        {
+            day: 1,
+            title: 'Pickup from Haridwar & Rishikesh',
+            text: 'Convenient pickup from Haridwar & Rishikesh. Ganga Snan & Ganga Aarti at Haridwar. Later, transfer to the hotel.'
+        },
+        {
+            day: 2,
+            title: 'Trek to Shri Kedarnath',
+            text: 'Attend the divine Evening Aarti at Kedarnath Dham. Night stay at Kedarnath.'
+        },
+        {
+            day: 3,
+            title: 'Morning Darshan & Aarti at Kedarnath Dham',
+            text: 'Trek back to Gaurikund. Transfer to the hotel for an overnight stay.'
+        },
+        {
+            day: 4,
+            title: 'Check out & return to Delhi',
+            text: 'Check out from the hotel and begin your return journey to Delhi, carrying unforgettable memories with TripSignature.'
+        }
+    ],
     manali: [
         { day: 1, title: 'Arrive Manali' },
         { day: 2, title: 'Manali \u2192 Kaza via Kunzum La' },

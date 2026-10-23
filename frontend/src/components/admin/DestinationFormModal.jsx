@@ -25,6 +25,7 @@ function toFormState(destination) {
         name: destination?.name || '',
         category: destination?.category || CATEGORY_LIST[0]?.key || '',
         price: destination?.price || '',
+        originalPrice: destination?.originalPrice || '',
         duration: destination?.duration || '',
         rating: destination?.rating != null ? String(destination.rating) : '4.5',
         description: destination?.description || '',
@@ -104,6 +105,7 @@ export default function DestinationFormModal({ destination, token, onClose, onSa
             category: form.category.trim(),
             categoryLabel: categoryMeta?.label || form.category.trim(),
             price: form.price.trim(),
+            originalPrice: form.originalPrice.trim() || null,
             duration: form.duration.trim(),
             rating: Number(form.rating),
             description: form.description.trim(),
@@ -190,6 +192,16 @@ export default function DestinationFormModal({ destination, token, onClose, onSa
                                 type="text"
                                 value={form.price}
                                 onChange={handleChange('price')}
+                                className="form-field-input"
+                                placeholder="₹15,999"
+                                disabled={busy}
+                            />
+                        </FormField>
+                        <FormField label="Original Price (optional, shown struck-through)" error={errors.originalPrice}>
+                            <input
+                                type="text"
+                                value={form.originalPrice}
+                                onChange={handleChange('originalPrice')}
                                 className="form-field-input"
                                 placeholder="₹15,999"
                                 disabled={busy}

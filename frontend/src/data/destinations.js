@@ -26,7 +26,8 @@ export const CATEGORIES = {
     items: withSlugs([
       {
         name: 'Kedarnath',
-        price: '\u20b915,999',
+        price: '\u20b913,999',
+        originalPrice: '\u20b915,999',
         duration: '4 Days',
         rating: 4.9,
         description:
@@ -35,8 +36,9 @@ export const CATEGORIES = {
       },
       {
         name: 'Kedarnath & Badrinath',
-        price: '\u20b924,999',
-        duration: '7 Days',
+        price: '\u20b915,999',
+        originalPrice: '\u20b924,999',
+        duration: '4 Nights & 5 Days',
         rating: 4.8,
         description:
           'The classic twin-shrine circuit combining Kedarnath and Badrinath in one itinerary, with comfortable overnight stops along the route.',

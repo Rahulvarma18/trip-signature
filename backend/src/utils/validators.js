@@ -151,6 +151,7 @@ const createDestinationSchema = Joi.object({
     price: Joi.string().required().trim().messages({
         'string.empty': 'Price is required'
     }),
+    originalPrice: Joi.string().optional().allow('', null).trim(),
     duration: Joi.string().required().trim().messages({
         'string.empty': 'Duration is required'
     }),
