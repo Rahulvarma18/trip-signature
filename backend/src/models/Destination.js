@@ -34,6 +34,13 @@ const destinationSchema = new mongoose.Schema(
             required: [true, 'Price is required'],
             trim: true
         },
+        originalPrice: {
+            // Optional — when set, `price` is shown as discounted and
+            // `originalPrice` is displayed as the crossed-out MRP.
+            type: String,
+            trim: true,
+            default: null
+        },
         priceValue: {
             // Numeric rupee amount parsed from `price`, for sorting/filtering.
             type: Number,

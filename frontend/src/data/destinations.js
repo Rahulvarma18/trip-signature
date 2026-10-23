@@ -44,8 +44,9 @@ export const CATEGORIES = {
       },
       {
         name: 'Char Dham Yatra',
-        price: '\u20b939,999',
-        duration: '11 Days',
+        price: '\u20b926,999',
+        originalPrice: '\u20b939,999',
+        duration: '8 Nights & 9 Days',
         rating: 4.9,
         description:
           'The complete pilgrimage covering Yamunotri, Gangotri, Kedarnath and Badrinath \u2014 planned around the pace of elderly travellers.',

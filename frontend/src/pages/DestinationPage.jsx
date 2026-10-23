@@ -195,6 +195,14 @@ export default function DestinationPage({ onEnquire, user, token, onRequireAuth 
                             </div>
                             <div className="text-right">
                                 <span className="text-xs uppercase tracking-wide text-ink-soft">Starting from</span>
+                                {item.originalPrice && (
+                                    <div className="flex items-center justify-end gap-2 mt-0.5">
+                                        <span className="text-xs line-through text-ink-soft/70">{item.originalPrice}</span>
+                                        <span className="text-[10px] font-bold uppercase tracking-wide bg-red-500 text-white px-2 py-0.5 rounded-full">
+                                            Sale
+                                        </span>
+                                    </div>
+                                )}
                                 <div className="font-display text-3xl font-bold text-[#040809]">{item.price}</div>
                                 <span className="text-xs text-ink-soft">per person</span>
                             </div>
@@ -401,6 +409,14 @@ export default function DestinationPage({ onEnquire, user, token, onRequireAuth 
                     <aside className="lg:sticky lg:top-6 h-fit space-y-5">
                         <div className="bg-paper border border-line rounded-card p-6 shadow-signature">
                             <span className="text-xs uppercase tracking-wide text-ink-soft">Starting from</span>
+                            {item.originalPrice && (
+                                <div className="flex items-center gap-2 mt-1 mb-0.5">
+                                    <span className="text-sm line-through text-ink-soft/70">{item.originalPrice}</span>
+                                    <span className="text-[10px] font-bold uppercase tracking-wide bg-red-500 text-white px-2 py-0.5 rounded-full">
+                                        Sale
+                                    </span>
+                                </div>
+                            )}
                             <div className="font-display text-3xl font-bold text-[#040809] mb-1">{item.price}</div>
                             <span className="text-xs text-ink-soft">per person, taxes included</span>
 

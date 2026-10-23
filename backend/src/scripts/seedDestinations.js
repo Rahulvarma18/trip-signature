@@ -42,6 +42,7 @@ async function seed() {
                     category: category.key,
                     categoryLabel: category.label,
                     price: item.price,
+                    originalPrice: item.originalPrice || null,
                     priceValue: parsePriceValue(item.price),
                     duration: item.duration,
                     rating: item.rating,

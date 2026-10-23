@@ -53,9 +53,13 @@ export default function Navbar({ onSearchClick, onGoToPackages, user, onOpenAuth
         <Link
           to="/"
           onClick={handleLogoClick}
-          className="font-display text-2xl tracking-tight text-white"
+          className="flex items-center gap-2 py-0.5 focus:outline-none group"
         >
-          Trip<span className="font-signature mt-1 text-[#D4AF37]">Signature</span>
+          <img
+            src="/logo-white.png"
+            alt="TripSignature"
+            className="h-10 sm:h-11 md:h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+          />
         </Link>
 
         {/* Desktop nav */}

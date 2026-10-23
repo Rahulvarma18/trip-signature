@@ -31,9 +31,13 @@ export default function Footer() {
       <div className="section-container">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.3fr] gap-11 mb-12">
           <div>
-            <div className="font-display text-2xl text-white mb-3.5">
-              Trip<span className="font-signature text-[#D4AF37]">Signature</span>
-            </div>
+            <Link to="/" className="inline-block mb-3.5 group">
+              <img
+                src="/logo-white.png"
+                alt="TripSignature"
+                className="h-11 md:h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+              />
+            </Link>
             <p className="text-[13.5px] leading-relaxed text-white/60 max-w-xs">
               A curated travel discovery platform for pilgrimage, honeymoon and trekking
               journeys. Pack a bag. The world is vast.

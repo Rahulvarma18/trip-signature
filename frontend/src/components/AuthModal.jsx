@@ -103,6 +103,14 @@ export default function AuthModal({ mode, onClose, onLogin, onSignup, onGoogleAu
           <X size={20} />
         </button>
 
+        <div className="mb-4">
+          <img
+            src="/logo.png"
+            alt="TripSignature"
+            className="h-8 sm:h-9 w-auto object-contain"
+          />
+        </div>
+
         <h3 className="font-display text-2xl font-semibold mb-1">
           {isSignup ? 'Create your account' : 'Welcome back'}
         </h3>
