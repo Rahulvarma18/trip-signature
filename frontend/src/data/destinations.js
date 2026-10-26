@@ -10,10 +10,18 @@ function slugify(name) {
     .replace(/(^-|-$)/g, '')
 }
 
+// Packages that reuse another package's photo folder in /public/images/destinations.
+export const IMAGE_FOLDER_OVERRIDES = {
+  'manali-volvo-escape': 'manali',
+  'manali-value-package': 'manali',
+  'manali-kasol-getaway': 'manali'
+}
+
 function withSlugs(items) {
   return items.map((item) => {
     const slug = slugify(item.name)
-    return { ...item, slug, image: `/images/destinations/${slug}/1.png` }
+    const folder = IMAGE_FOLDER_OVERRIDES[slug] || slug
+    return { ...item, slug, image: `/images/destinations/${folder}/1.png` }
   })
 }
 
@@ -343,12 +351,31 @@ export const CATEGORIES = {
         highlights: ['Four 8000m+ peaks in view', 'West Bengal\u2019s highest point', 'Singalila ridge trail']
       },
       {
-        name: 'Manali',
-        price: '\u20b99,999',
-        duration: '6 Days',
+        name: 'Manali Volvo Escape',
+        price: '\u20b98,999',
+        duration: '3 Nights & 4 Days',
+        rating: 4.7,
         description:
-          'A six-day Himalayan circuit from Manali over Kunzum La into Spiti Valley \u2014 Kaza, Key, Kibber, Hikkim, Langza and Pin Valley \u2014 returning via Chandratal Lake.',
-        highlights: ['Kunzum La crossing', 'Key, Kibber & Chicham villages', 'Sunrise at Chandratal Lake']
+          'An overnight AC Volvo from Delhi to Manali \u2014 Solang Valley, the Atal Tunnel, Sissu Waterfall, Old Manali, Jogini Falls and Vashisht hot springs, with a bonfire and music night.',
+        highlights: ['AC Volvo from Delhi', 'Solang Valley & Atal Tunnel to Sissu', 'Bonfire & music night']
+      },
+      {
+        name: 'Manali Value Package',
+        price: '\u20b97,999',
+        duration: '3 Nights & 4 Days',
+        rating: 4.6,
+        description:
+          'A budget-friendly Delhi-to-Delhi Manali trip covering local sightseeing, the snow points, and Kullu\u2013Manikaran with time for adventure activities.',
+        highlights: ['Delhi to Delhi transport', 'Snow points of Manali', 'Kullu\u2013Manikaran & adventure time']
+      },
+      {
+        name: 'Manali Kasol Getaway',
+        price: '\u20b99,999',
+        duration: '4 Nights & 5 Days',
+        rating: 4.7,
+        description:
+          'Delhi to Delhi in five days \u2014 local Manali, the Atal Tunnel and Solang Valley, Kullu and Manikaran with adventure activities, then on to Kasol, with a bonfire and music night.',
+        highlights: ['Atal Tunnel & Solang Valley', 'Kullu\u2013Manikaran & adventure activities', 'Kasol sightseeing & bonfire night']
       },
       {
         name: 'Spiti Full Circuit',

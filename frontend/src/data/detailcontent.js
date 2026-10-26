@@ -2,6 +2,8 @@
 // inclusions/exclusions) from the existing lightweight item data, so the
 // main destinations.js list doesn't need to be hand-expanded per item.
 
+import { IMAGE_FOLDER_OVERRIDES } from './destinations.js'
+
 function seedFromString(str) {
     let hash = 0
     for (let i = 0; i < str.length; i++) {
@@ -37,7 +39,8 @@ export function getGallery(item) {
     // use those. Otherwise fall back to the original local-file convention
     // so destinations that haven't been migrated yet keep working.
     if (item.images && item.images.length > 0) return item.images
-    return [1, 2, 3, 4, 5].map((n) => `/images/destinations/${item.slug}/${n}.png`)
+    const folder = IMAGE_FOLDER_OVERRIDES[item.slug] || item.slug
+    return [1, 2, 3, 4, 5].map((n) => `/images/destinations/${folder}/${n}.png`)
 }
 
 // ---------- Itinerary ----------
@@ -138,18 +141,6 @@ const CUSTOM_ITINERARIES = {
             text: 'Check out from the hotel and begin your return journey to Delhi, carrying unforgettable memories with TripSignature.'
         }
     ],
-    manali: [
-        { day: 1, title: 'Arrive Manali' },
-        { day: 2, title: 'Manali \u2192 Kaza via Kunzum La' },
-        { day: 3, title: 'Kaza \u00b7 Key \u00b7 Kibber \u00b7 Chicham' },
-        { day: 4, title: 'Hikkim \u00b7 Komic \u00b7 Langza \u00b7 Pin valley' },
-        { day: 5, title: 'Kaza \u2192 Chandratal' },
-        {
-            day: 6,
-            title: 'Chandratal \u2192 Manali',
-            text: 'Sunrise at the lake and the drive back. Drop in Manali by evening.'
-        }
-    ],
     'spiti-full-circuit': [
         {
             day: 1,
@@ -174,6 +165,76 @@ const CUSTOM_ITINERARIES = {
             day: 6,
             title: 'Chandratal \u2192 Manali',
             text: 'Sunrise at the lake and the drive back. Drop in Manali by evening.'
+        }
+    ],
+    'manali-volvo-escape': [
+        {
+            day: 1,
+            title: 'Meet the captain in Delhi',
+            text: 'Meet your trip captain in Delhi and board the AC Volvo for the overnight journey to Manali.'
+        },
+        {
+            day: 2,
+            title: 'Arrival in Manali \u00b7 Solang Valley',
+            text: 'Check in and freshen up. Head to Solang Valley for snow activities, then explore Mall Road in the evening.'
+        },
+        {
+            day: 3,
+            title: 'Atal Tunnel \u00b7 Sissu \u00b7 Old Manali',
+            text: 'Drive through the Atal Tunnel into Lahaul for Sissu Waterfall and the Chandra river. Back by afternoon for Old Manali.'
+        },
+        {
+            day: 4,
+            title: 'Jogini Falls & return to Delhi',
+            text: 'A morning visit to Jogini Waterfall and the Vashisht hot springs, then the journey back to Delhi.'
+        }
+    ],
+    'manali-kasol-getaway': [
+        {
+            day: 1,
+            title: 'Overnight pickup from Delhi',
+            text: 'Board your vehicle in Delhi and transfer overnight to Manali.'
+        },
+        {
+            day: 2,
+            title: 'Arrival & local Manali',
+            text: 'Check in and freshen up, then explore the local sightseeing of Manali.'
+        },
+        {
+            day: 3,
+            title: 'Atal Tunnel & Solang Valley'
+        },
+        {
+            day: 4,
+            title: 'Kullu \u00b7 Manikaran',
+            text: 'Visit Kullu and Manikaran, with time to make a signature on your trip with adventure activities. Then transfer to Kasol.'
+        },
+        {
+            day: 5,
+            title: 'Kasol sightseeing & return to Delhi',
+            text: 'Explore the local sightseeing of Kasol, then travel back and reach Delhi early the next morning.'
+        }
+    ],
+    'manali-value-package': [
+        {
+            day: 1,
+            title: 'Overnight pickup from Delhi',
+            text: 'Board your vehicle in Delhi for the overnight drive to Manali.'
+        },
+        {
+            day: 2,
+            title: 'Check-in & local sightseeing',
+            text: 'Check in, freshen up and visit the local sightseeing spots in Manali.'
+        },
+        {
+            day: 3,
+            title: 'Snow points of Manali',
+            text: 'A full day visiting the snow points around Manali.'
+        },
+        {
+            day: 4,
+            title: 'Kullu \u00b7 Manikaran & adventure time',
+            text: 'Visit Kullu and Manikaran, with time for adventure activities before the return to Delhi.'
         }
     ],
     'winter-spiti': [
@@ -323,6 +384,28 @@ const SPITI_EXCLUSIONS = [
 ]
 
 const DESTINATION_INCLUSIONS = {
+    'manali-kasol-getaway': [
+        '3 nights accommodation',
+        'Delhi to Delhi transportation',
+        'All sightseeing',
+        '3 breakfasts and 3 dinners',
+        'Bonfire & music night'
+    ],
+    'manali-volvo-escape': [
+        '2 nights accommodation',
+        'Delhi to Delhi transportation (AC Volvo)',
+        'All sightseeing',
+        '2 breakfasts and 2 dinners',
+        'Bonfire & music night'
+    ],
+    'manali-value-package': [
+        'Delhi to Delhi transportation',
+        '3 nights accommodation',
+        '6 meals: 3 breakfasts and 3 dinners',
+        'Driver allowances',
+        'Toll tax',
+        'Parking'
+    ],
     'winter-spiti': [
         '8 nights stay in heated hotels and homestays',
         '4\u00d74 vehicles with snow chains and an experienced winter driver',
@@ -350,6 +433,25 @@ const DESTINATION_INCLUSIONS = {
 }
 
 const DESTINATION_EXCLUSIONS = {
+    'manali-kasol-getaway': [
+        '5% GST',
+        'Snow & adventure activities charges',
+        'Any personal expenses',
+        'Anything not included in the inclusions'
+    ],
+    'manali-volvo-escape': [
+        '5% GST',
+        'Snow & adventure activities charges',
+        'Any personal expenses',
+        'Anything not included in the inclusions'
+    ],
+    'manali-value-package': [
+        '5% GST',
+        'Any personal expenses',
+        'Adventure activities charges',
+        'Any kind of entry tickets / fees',
+        'Rohtang Pass charges'
+    ],
     'winter-spiti': SPITI_EXCLUSIONS,
     'spiti-short-loop': SPITI_EXCLUSIONS,
     'spiti-full-circuit': [
