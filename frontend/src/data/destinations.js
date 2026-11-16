@@ -556,6 +556,7 @@ export const TRAVELLER_OPTIONS = ['Solo', '2', '3', '4+']
 export const CONTACT = {
   phone: '+91 78500 77928',
   phoneHref: 'tel:+917850077928',
+  whatsappHref: 'https://wa.me/917850077928',
   email: 'tripsignatureofficial@gmail.com',
   address: 'D-Block Sheetala Colony, Gurgaon, India'
 }

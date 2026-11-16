@@ -9,6 +9,7 @@ import {
     XCircle,
     ChevronRight,
     Phone,
+    MessageCircle,
     ShieldCheck,
     Users,
     Loader2,
@@ -279,6 +280,32 @@ export default function DestinationPage({ onEnquire, user, token, onRequireAuth 
                                         </li>
                                     ))}
                                 </ul>
+                            </div>
+                        </section>
+
+                        {/* Package details notice */}
+                        <section className="mt-10 bg-paper border border-line rounded-card p-5 sm:p-6">
+                            <h2 className="font-display text-xl font-semibold mb-2">Final Package Details</h2>
+                            <p className="text-[13.5px] text-ink-soft leading-relaxed">
+                                Website package details are for destination exploration only and are not final.
+                                Connect with <b className="text-[#040809]">Trip Signature</b> for complete package
+                                details, final pricing, inclusions, exclusions, and a confirmed itinerary.
+                            </p>
+                            <p className="text-[13.5px] font-medium mt-4 mb-3">
+                                Call or message us: {CONTACT.phone}
+                            </p>
+                            <div className="flex flex-wrap gap-3">
+                                <a href={CONTACT.phoneHref} className="btn btn-ghost">
+                                    <Phone size={14} /> Call Us
+                                </a>
+                                <a
+                                    href={CONTACT.whatsappHref}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn btn-ghost"
+                                >
+                                    <MessageCircle size={14} /> Message Us
+                                </a>
                             </div>
                         </section>
 

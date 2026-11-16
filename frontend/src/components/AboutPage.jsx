@@ -6,10 +6,9 @@ import { CONTACT } from '../data/destinations'
 
 // ---- Edit these to update the page ----
 const OWNER = {
-    name: '', // e.g. 'Your Name' — leave empty to hide the name line
-    title: 'Founder & Owner',
-    // Put the owner's photo at frontend/public/images/owner.jpg
-    photo: '/images/owner.jpg'
+    name: 'Nitish Dushad',
+    title: 'Founder & CEO',
+    photo: '/images/trip-signature-logo.png'
 }
 
 const HIGHLIGHTS = [
@@ -83,7 +82,7 @@ export default function AboutPage() {
             {/* Owner */}
             <div className="grid grid-cols-1 md:grid-cols-[320px_1fr] gap-8 md:gap-12 items-center mt-14 md:mt-20">
                 <div className="mx-auto w-full max-w-[320px]">
-                    <div className="aspect-[4/5] rounded-[10px] overflow-hidden border border-line bg-[#84A095]/40 shadow-deep flex items-center justify-center">
+                    <div className="aspect-[4/5] rounded-[10px] overflow-hidden border border-line bg-[#017ED8] shadow-deep flex items-center justify-center">
                         {photoFailed ? (
                             <Compass size={64} className="stroke-[#040809]/40" />
                         ) : (
@@ -91,14 +90,14 @@ export default function AboutPage() {
                                 src={OWNER.photo}
                                 alt={OWNER.name ? `${OWNER.name}, ${OWNER.title}` : OWNER.title}
                                 onError={() => setPhotoFailed(true)}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-contain"
                             />
                         )}
                     </div>
                 </div>
 
                 <div>
-                    <span className="eyebrow">Meet the Owner</span>
+                    <span className="eyebrow">Meet the Founder</span>
                     {OWNER.name && (
                         <h2 className="font-display text-2xl md:text-3xl font-semibold mt-2">{OWNER.name}</h2>
                     )}

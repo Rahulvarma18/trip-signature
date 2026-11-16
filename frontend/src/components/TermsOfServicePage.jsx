@@ -18,6 +18,25 @@ export default function TermsOfServicePage() {
                 will follow up to finalise details, availability, and final pricing.
             </p>
 
+            <h2 className="font-display text-xl font-semibold text-[#040809] pt-2">
+                Final Itinerary &amp; Package Confirmation
+            </h2>
+            <p>
+                All package details, itineraries, prices, and inclusions displayed on our website are
+                provided for destination exploration and general reference purposes only. These details
+                are not final or guaranteed and may vary depending on travel dates, availability,
+                seasonal conditions, and customer preferences.
+            </p>
+            <p>
+                The final package price, itinerary, inclusions, exclusions, accommodation,
+                transportation, and other services will be confirmed separately through the official
+                itinerary shared by our team before booking confirmation.
+            </p>
+            <p>
+                Customers are requested to consider the final shared itinerary as the official reference
+                for their selected travel package.
+            </p>
+
             <h2 className="font-display text-xl font-semibold text-[#040809] pt-2">Accounts</h2>
             <p>
                 You're responsible for keeping your account credentials secure. Please provide accurate
