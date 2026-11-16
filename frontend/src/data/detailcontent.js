@@ -82,6 +82,58 @@ function pickAvoiding(rng, pool, exclude) {
 // here it is used as-is instead of the auto-generated plan below.
 // `text` is optional — days without it show just the title.
 const CUSTOM_ITINERARIES = {
+    'char-dham-yatra': [
+        {
+            day: 0,
+            title: 'Delhi Pickup',
+            text: 'Late-night pickup from Delhi. Overnight journey towards Haridwar.'
+        },
+        {
+            day: 1,
+            title: 'Haridwar \u2192 Barkot',
+            text: 'Early morning arrival in Haridwar. Attend the divine Ganga Aarti at Har Ki Pauri Ghat. After the Aarti, proceed towards Barkot. Check-in at the hotel. Overnight stay in Barkot.'
+        },
+        {
+            day: 2,
+            title: 'Yamunotri Dham Darshan',
+            text: 'Early morning departure for Yamunotri Dham. Complete Darshan and return to Barkot. Overnight stay in Barkot.'
+        },
+        {
+            day: 3,
+            title: 'Barkot \u2192 Uttarkashi',
+            text: 'Early morning check-out from the hotel. Transfer to Uttarkashi. Check-in at the hotel and relax. Overnight stay in Uttarkashi.'
+        },
+        {
+            day: 4,
+            title: 'Gangotri Dham Darshan',
+            text: 'Early morning departure for Gangotri Dham. Complete Darshan and explore the sacred surroundings. Return to Uttarkashi. Overnight stay in Uttarkashi.'
+        },
+        {
+            day: 5,
+            title: 'Uttarkashi \u2192 Phata',
+            text: 'Early morning check-out. Transfer towards Phata. Check-in and rest for the next day\u2019s Kedarnath Yatra. Overnight stay in Phata.'
+        },
+        {
+            day: 6,
+            title: 'Phata \u2192 Gaurikund \u2192 Kedarnath',
+            text: 'Early morning departure towards Gaurikund. Start your trek from Gaurikund to Shri Kedarnath Dham. Complete the trek and check in at the accommodation. Overnight stay in Kedarnath.'
+        },
+        {
+            day: 7,
+            title: 'Kedarnath Darshan \u2192 Gaurikund \u2192 Phata',
+            text: 'Check out from the accommodation. Proceed for Shri Kedarnath Temple Darshan. After Darshan, trek back towards Gaurikund. Transfer back to Phata. Overnight stay in Phata.'
+        },
+        {
+            day: 8,
+            title: 'Phata \u2192 Joshimath / Badrinath',
+            text: 'Early morning check-out. Proceed towards Joshimath/Badrinath. Check-in at the hotel. Overnight stay in Joshimath/Badrinath.'
+        },
+        {
+            day: 9,
+            title: 'Badrinath Dham Darshan \u2192 Mana Village',
+            text: 'Check out from the hotel. Proceed for Badrinath Temple Darshan. Visit Mana Village, India\u2019s last village on the Indo-Tibetan border. Begin the return journey towards Haridwar/Delhi. Reach Delhi by next day early morning.'
+        }
+    ],
     'kedarnath-and-badrinath': [
         {
             day: 0,
@@ -384,6 +436,14 @@ const SPITI_EXCLUSIONS = [
 ]
 
 const DESTINATION_INCLUSIONS = {
+    'char-dham-yatra': [
+        'Assistance with darshan / temple entry queues',
+        'Puja arrangements on request',
+        '8 nights accommodation as per itinerary',
+        'Meals: 8 breakfasts & 8 dinners',
+        'Transportation',
+        'All local sightseeing'
+    ],
     'manali-kasol-getaway': [
         '3 nights accommodation',
         'Delhi to Delhi transportation',
