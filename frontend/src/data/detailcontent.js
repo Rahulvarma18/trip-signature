@@ -381,10 +381,10 @@ const BASE_INCLUSIONS = [
     'Accommodation as per itinerary',
     'Daily breakfast',
     'All transfers and sightseeing by private vehicle',
-    'Dedicated trip coordinator',
-    'All applicable taxes'
+    'Dedicated trip coordinator'
 ]
 const BASE_EXCLUSIONS = [
+    'All applicable taxes (GST, etc.)',
     'Airfare / train fare to and from the base city',
     'Personal expenses and tips',
     'Meals not mentioned in the itinerary',

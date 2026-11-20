@@ -452,7 +452,7 @@ export default function DestinationPage({ onEnquire, user, token, onRequireAuth 
                                 {item.price}
                                 <span className="ml-1 font-sans text-xs font-normal text-ink-soft">/person</span>
                             </div>
-                            <span className="text-xs text-ink-soft">taxes included</span>
+                            <span className="text-xs text-ink-soft">+ applicable taxes extra</span>
 
                             <div className="mt-5 space-y-2.5 text-[13.5px] text-ink-soft">
                                 <div className="flex items-center gap-2.5">
