@@ -584,4 +584,4 @@ export function averageRating(reviews, fallback) {
     if (!reviews.length) return fallback
     const sum = reviews.reduce((acc, r) => acc + r.rating, 0)
     return Math.round((sum / reviews.length) * 10) / 10
-}
+}   
